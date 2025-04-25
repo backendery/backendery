@@ -1,0 +1,13 @@
+# Allow Googlebot access to all pages
+User-agent: Googlebot
+Allow: /
+
+# Deny Yandex access to all pages of the site
+User-agent: Yandex
+Disallow: /
+
+# Deny access to .htaccess to all search engines
+User-agent: *
+Disallow: /.htaccess
+
+Sitemap: https://backendery.io/sitemap.xml
