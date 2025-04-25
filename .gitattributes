@@ -1,0 +1,9 @@
+* text=auto
+
+*.ico  binary
+*.jpeg binary
+*.jpg  binary
+*.png  binary
+*.webp binary
+
+yarn.lock merge=ours
