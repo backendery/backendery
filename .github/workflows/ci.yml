@@ -1,0 +1,65 @@
+---
+name: Deploy React.js app to Hostinger
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.18.1"
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+      - name: Install dependencies
+        run: |
+          yarn
+      - name: Build React.js app
+        env:
+          VITE_BACKENDERY_LETS_START_BASE_URL: "${{ vars.VITE_BACKENDERY_LETS_START_BASE_URL }}"
+          VITE_GTM_ID: "${{ vars.VITE_GTM_ID }}"
+        run: |
+          yarn build:w3s
+      - name: Upload [dist] folder as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: "packages/w3s/dist"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: hostinger
+    steps:
+      - name: Download [dist] artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: "packages/w3s/dist"
+      - name: Deploy to Hostinger via FTP
+        env:
+          FTP_DEPLOY_FOLDER: "${{ secrets.FTP_DEPLOY_FOLDER }}"
+          FTP_HOST: "${{ secrets.FTP_HOST }}"
+          FTP_USERNAME: "${{ secrets.FTP_USERNAME }}"
+          FTP_PASSWORD: "${{ secrets.FTP_PASSWORD }}"
+        run: |
+          sudo apt-get install -y lftp
+          lftp -e "
+            set ftp:ssl-allow no;
+            open $FTP_HOST;
+            user $FTP_USERNAME $FTP_PASSWORD;
+
+            # Upload newer files and delete old files, but exclude manifest.*, .htaccess, etc.
+            mirror -v -R --only-newer --delete --exclude .htaccess packages/w3s/dist/ $FTP_DEPLOY_FOLDER;
+
+            bye
+          "
