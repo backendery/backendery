@@ -1,0 +1,27 @@
+// Container sizes
+$containerMaxWidth: 2120px;
+$containerMinWidth: 360px;
+$container: 1920px;
+
+// Breakpoints
+$base: 0;
+$xs: 480px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$xl: 1920px;
+
+// Theme colors
+$primary-color: #030f0f;
+$secondary-color: #f1f7f7;
+$accent-color: #00df82;
+$error-color: #d83d2f;
+
+// Spaces options
+$spacer: 1rem;
+$fast: 0.3s;
+$easing: cubic-bezier(0.55, 0, 0.1, 1);
+
+// CSS root container options
+$width-in-dvw: calc(var(--dvw, 1dvw) * 100);
+$height-in-dvh: calc(var(--dvh, 1dvh) * 100);

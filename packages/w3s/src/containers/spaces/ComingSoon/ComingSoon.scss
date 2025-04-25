@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.coming-soon {
+  @include adaptive-value($property: "padding", $from: 130, $to: 50);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $width-in-dvw;
+  height: $height-in-dvh;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+}

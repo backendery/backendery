@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.stdout-row {
+  display: flex;
+  text-wrap: nowrap;
+
+  &__filler-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__filler {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__status {
+    color: $secondary-color;
+
+    &--success {
+      color: $accent-color;
+    }
+  }
+}

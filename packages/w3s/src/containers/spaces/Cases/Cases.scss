@@ -1,0 +1,232 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.cases {
+  @include adaptive-value($property: "padding", $from: 130, $to: 50);
+
+  display: grid;
+  grid-template-rows: auto 15% 1fr auto;
+  grid-template-columns: 20% 1fr auto;
+  width: $width-in-dvw;
+  height: $height-in-dvh;
+  user-select: none;
+
+  &__title {
+    @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
+
+    grid-column: 1/3;
+    font-weight: 600;
+    line-height: 110%;
+  }
+
+  &__decorative-corner {
+    grid-row: 1;
+    grid-column: 3;
+    align-self: end;
+    justify-self: end;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid $accent-color;
+    border-left: 2px solid $accent-color;
+  }
+
+  &__decorative-marquee-str-wrapper {
+    display: flex;
+    grid-row: 3;
+    align-items: center;
+    align-self: flex-start;
+
+    &--brace {
+      font-weight: 300;
+      font-size: 28px;
+    }
+
+    @media screen and (width <= $lg) {
+      grid-row: 2;
+      grid-column: 1;
+      margin: 40px 0 40px -4px;
+    }
+
+    @media screen and (width <= $xs) {
+      grid-row: 2;
+      grid-column: 1;
+      margin: 20px 0 20px -4px;
+    }
+  }
+
+  &__decorative-marquee-str {
+    width: 130px;
+    padding-top: 3px;
+    overflow: hidden;
+    color: rgba($color: $secondary-color, $alpha: 0.2);
+    white-space: nowrap;
+  }
+
+  &__case-wrapper {
+    display: flex;
+    grid-row: 3/-1;
+    grid-column: 2/4;
+    gap: 5%;
+    justify-content: space-between;
+
+    @media screen and (width <= $lg) {
+      display: none;
+    }
+  }
+
+  &__shrinked-case-wrapper {
+    display: none;
+
+    @media screen and (width <= $lg) {
+      display: block;
+      grid-row: 3/-1;
+      grid-column: 1;
+    }
+
+    @media screen and (width <= $sm) {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__case {
+    @include adaptive-value($property: "padding-left", $from: 30, $to: 20);
+
+    display: grid;
+    grid-template-rows: auto auto 1fr auto auto;
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    height: 100%;
+    overflow-y: hidden;
+    border-left: 6px solid $secondary-color;
+    row-gap: 20px;
+  }
+
+  &__case-category {
+    color: $accent-color;
+  }
+
+  &__case-title {
+    @include adaptive-value($property: "font-size", $from: 28, $to: 24);
+
+    font-weight: 600;
+    line-height: 120%;
+  }
+
+  &__case-description {
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+    padding-right: 20px;
+    overflow-y: scroll;
+    color: rgba($color: $secondary-color, $alpha: 0.5);
+  }
+
+  &__case-technologies-title {
+    margin-bottom: -10px;
+    color: $accent-color;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+
+  &__multi-wrapper {
+    display: flex;
+    grid-row: 4;
+    grid-column: 1;
+    gap: 10px;
+    align-items: end;
+
+    @media screen and (width <= $lg) {
+      grid-row: 4;
+      grid-column: 3;
+    }
+
+    @media screen and (width <= $sm) {
+      grid-row: 4;
+      grid-column: 1;
+    }
+
+    @media screen and (width <= $xs) {
+      grid-row: 5;
+      grid-column: 1/4;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__decorative-indicators {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (width <= $lg) {
+      display: none;
+    }
+  }
+
+  &__decorative-indicator {
+    margin-top: -12px;
+    color: $accent-color;
+    font-weight: 600;
+    background-color: $primary-color;
+
+    &:nth-child(3) {
+      animation: pulsing-indicator 0.1s linear forwards infinite;
+    }
+
+    @keyframes pulsing-indicator {
+      0% {
+        color: $accent-color;
+      }
+
+      100% {
+        color: rgba($color: $accent-color, $alpha: 0.3);
+      }
+    }
+  }
+
+  &__navigate {
+    display: none;
+    margin-left: 40px;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+
+    @media screen and (width <= $lg) {
+      display: flex;
+      gap: 30px;
+    }
+  }
+
+  &__navigate-btn {
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+
+    &.active {
+      color: $accent-color;
+    }
+  }
+
+  &__decorative-text {
+    display: none;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+
+    @media screen and (width <= $lg) {
+      display: block;
+      grid-row: 3;
+      grid-column: 3;
+    }
+
+    @media screen and (width <= $sm) {
+      grid-row: 4;
+    }
+
+    @media screen and (width <= $xs) {
+      display: none;
+    }
+  }
+
+  @media screen and (width <= $lg) {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto auto;
+  }
+
+  @media screen and (width <= $xs) {
+    row-gap: 20px;
+  }
+}

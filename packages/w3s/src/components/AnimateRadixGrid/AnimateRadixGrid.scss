@@ -1,0 +1,19 @@
+@import "../../styles/variables";
+
+.animate-radix-grid {
+  display: grid;
+  column-gap: 20px;
+  row-gap: 3px;
+  font-size: 13px;
+
+  &__cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($color: $secondary-color, $alpha: 0.2);
+    user-select: none;
+
+    &.unreachable {
+    }
+  }
+}

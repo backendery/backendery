@@ -1,0 +1,185 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.steps {
+  @include adaptive-value($property: "padding", $from: 130, $to: 50);
+
+  display: grid;
+  grid-template-rows: auto 15% auto 1fr auto;
+  grid-template-columns: 1fr 1fr 20% 10% auto;
+  width: $width-in-dvw;
+  height: $height-in-dvh;
+  user-select: none;
+
+  &__title {
+    @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
+
+    font-weight: 600;
+    line-height: 110%;
+  }
+
+  &__navigate {
+    display: flex;
+    flex-direction: column;
+    grid-row: 1/-1;
+    grid-column: 5;
+    gap: 50px;
+    justify-content: center;
+
+    @media screen and (width <= 1400px) {
+      flex-direction: row;
+      grid-row: 4;
+      grid-column: 1;
+      align-self: end;
+      justify-content: start;
+    }
+
+    @media screen and (width <= $xs) {
+      grid-column: 1/-1;
+      gap: auto;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__navigate-btn {
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+    cursor: pointer;
+
+    &.active {
+      color: $accent-color;
+    }
+  }
+
+  &__decorative-square {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: end;
+    width: 16px;
+    height: 16px;
+    background-color: $accent-color;
+
+    @media screen and (width <= $md) {
+      grid-row: 4;
+      grid-column: 2;
+      justify-self: end;
+    }
+
+    @media screen and (width <= $xs) {
+      display: none;
+    }
+  }
+
+  &__step-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    grid-row: 3;
+    gap: 20px;
+
+    @media screen and (width <= $md) {
+      @include adaptive-value($property: "margin-top", $from: 40, $to: 30);
+      @include adaptive-value($property: "margin-bottom", $from: 40, $to: 30);
+
+      grid-row: 2;
+      grid-column: 1/-1;
+    }
+  }
+
+  &__step-title-navigate-item {
+    color: $accent-color;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  &__step-title {
+    @include adaptive-value($property: "font-size", $from: 60, $to: 32);
+
+    width: fit-content;
+    padding: 0.7rem 1.5rem;
+    color: $primary-color;
+    font-weight: 600;
+    line-height: 100%;
+    background-color: $secondary-color;
+  }
+
+  &__step-description-wrapper {
+    display: flex;
+    flex-direction: column;
+    grid-row: 3/-1;
+    grid-column: 2/4;
+    gap: 30px;
+    justify-content: space-between;
+    margin: 35px 0 0;
+
+    @media screen and (width <= $md) {
+      grid-row: 3;
+      grid-column: 1/-1;
+      margin: 0 0 40px;
+    }
+  }
+
+  &__step-description {
+    max-width: 450px;
+  }
+
+  &__decorative-stdout-row-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 450px;
+    margin-right: 100px;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+    text-wrap: nowrap;
+
+    @media screen and (width <= $sm) {
+      margin-right: 0;
+    }
+  }
+
+  &__decorative-text {
+    align-self: end;
+
+    &--static {
+      grid-column: 3;
+      align-self: end;
+      justify-self: end;
+      color: $accent-color;
+
+      @media screen and (width <= $md) {
+        grid-column: 2;
+      }
+    }
+
+    &--scramble {
+      grid-row: 5;
+      align-self: end;
+
+      @media screen and (width <= 1400px) {
+        display: none;
+      }
+    }
+  }
+
+  &__decorative-abstract-phrase {
+    grid-row: 5;
+    grid-column: 3;
+    justify-self: end;
+    max-width: 130px;
+    color: rgba($color: $secondary-color, $alpha: 0.5);
+    font-size: 11px;
+    text-align: right;
+
+    @media screen and (width <= 1400px) {
+      display: none;
+    }
+  }
+
+  @media screen and (width <= 1400px) {
+    grid-template-columns: 1fr 1fr auto;
+  }
+
+  @media screen and (width <= $md) {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto;
+  }
+}

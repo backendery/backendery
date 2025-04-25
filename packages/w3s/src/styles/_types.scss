@@ -1,0 +1,48 @@
+/**
+ * List of supported container types.
+ *
+ * This variable defines a list of container types that are supported by various functions
+ * within the stylesheet. These types indicate different conditions or modes of adaptation
+ * based on container sizes.
+ *
+ * @type {list}
+ *
+ * @value ("less", "over")
+ *
+ * @example
+ * // Using the $supported-container-type variable in a function to check if a container type is supported
+ * @function is-container-supported($value) {
+ *   @each $container in $supported-container-type {
+ *     @if ($value == $container) {
+ *       @return true;
+ *     }
+ *   }
+ *
+ *   @return false;
+ * }
+ */
+$supported-container-type: ("less", "over");
+
+/**
+  * List of supported CSS units.
+  *
+  * This variable defines a list of CSS units that are supported by various functions
+  * within the stylesheet. The units included are commonly used for size and dimension
+  * calculations in CSS.
+  *
+  * @type {list}
+  *
+  * @value ("px", "rem", "em", "vh", "vw", "vmin", "vmax", "ch", "%")
+  *
+  * @example
+  * // Using the $supported-unit-type variable in a function to check if a unit is supported
+  * @function is-support-unit($value) {
+  *   @each $unit in $supported-unit-type {
+  *     @if ($value == $unit) {
+  *       @return true;
+  *     }
+  *   }
+  *   @return false;
+  * }
+  */
+$supported-unit-type: ("px", "rem", "em", "vh", "vw", "vmin", "vmax", "ch", "%");
