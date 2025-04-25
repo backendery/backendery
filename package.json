@@ -1,0 +1,69 @@
+{
+  "name": "backendery",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backendery/backendery.git"
+  },
+  "maintainers": [
+    {
+      "name": "Backendery",
+      "email": "hey@backendery.io",
+      "url": "https://github.com/backendery"
+    }
+  ],
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:w3s": "yarn workspaces foreach --all --parallel run build",
+    "dev:w3s": "yarn workspace @backendery/w3s run dev",
+    "eslint": "npx eslint",
+    "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
+    "husky": "npx husky",
+    "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
+    "party": "yarn workspace @backendery/w3s run party",
+    "prettier": "npx prettier",
+    "sort-pkg": "npx sort-package-json",
+    "stylelint": "npx stylelint"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,sass,scss,css}": [
+      "yarn prettier --write"
+    ],
+    "**/*.{ts,tsx}": [
+      "yarn eslint --fix"
+    ],
+    "**/*.{sass,scss,css}": [
+      "yarn stylelint --fix"
+    ],
+    "yarn.lock": [
+      "yarn dedupe"
+    ]
+  },
+  "prettier": "@beardeddudes/prettier-config",
+  "eslintConfig": {
+    "extends": "@beardeddudes/eslint-config",
+    "ignorePatterns": [
+      "webpack.config.ts"
+    ]
+  },
+  "stylelint": {
+    "extends": "@beardeddudes/stylelint-config"
+  },
+  "devDependencies": {
+    "@beardeddudes/eslint-config": "~0.1.*",
+    "@beardeddudes/postcss-config": "~0.1.*",
+    "@beardeddudes/prettier-config": "~0.1.*",
+    "@beardeddudes/stylelint-config": "~0.1.*",
+    "@beardeddudes/typescript-config": "~0.1.*",
+    "husky": "~9.0.11",
+    "lint-staged": "~15.2.2",
+    "sort-package-json": "~2.12.0",
+    "typescript": "~5.3.3"
+  },
+  "packageManager": "yarn@4.3.1",
+  "engines": {
+    "node": "~20.18.1"
+  }
+}
