@@ -1,6 +1,6 @@
 import { Options as ScrollbarsOptions } from "overlayscrollbars"
 import { createContext, FC, PropsWithChildren, useContext, useEffect, useState } from "react"
-import { useNetworkState } from "react-use"
+import useNetworkState from "react-use/lib/useNetworkState"
 
 /**
  * Application context properties interface.
