@@ -1,5 +1,16 @@
 # Version history
 
+## 0.1.2 (09-08-2025)
+
+### Chores
+- add a photo of the founder in `avif` format
+- exclude `Yandex`
+
+### Refactor
+- allow `GTM` to send queries
+- rejection the `framer-motion` library and rewrite the dependent functionality in `HTML/CSS`
+- optimize code to increase website loading speed
+
 ## 0.1.1 (08-05-2025)
 
 ### Chores
