@@ -1,4 +1,3 @@
-import { motion } from "framer-motion"
 import React, { FC, useEffect, useState } from "react"
 
 import { randomBetween } from "../../utils/fn"
@@ -141,9 +140,6 @@ const AnimateSignalStrip: FC<IAnimateSignalStripProps> = props => {
    */
   const [symbols, setSymbols] = useState<string>(props.initialSymbols ?? props.symbol)
 
-  // Synchronize duration with minimum interval
-  const duration = props.minInterval / 1_000
-
   useEffect(() => {
     // Set an interval for animating symbols
     const interval = setInterval(animateSymbols, randomBetween(props.minInterval, props.maxInterval))
@@ -152,11 +148,7 @@ const AnimateSignalStrip: FC<IAnimateSignalStripProps> = props => {
     return () => clearInterval(interval)
   }, [symbols, props.symbol, props.maxNumberOfSymbols, props.minInterval, props.maxInterval])
 
-  return (
-    <motion.p style={{ ...props.style }} transition={{ duration: duration, repeat: Infinity }}>
-      {symbols}
-    </motion.p>
-  )
+  return (<p style={{ ...props.style }}> {symbols} </p>)
 }
 
 export default AnimateSignalStrip

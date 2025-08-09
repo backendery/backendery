@@ -1,26 +1,4 @@
 {
-  "name": "@backendery/w3s",
-  "version": "0.1.1",
-  "private": true,
-  "description": "A small React.js single-page app that serves as a homepage for the Backendery digital studio",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/backendery/backendery.git",
-    "directory": "packages/w3s"
-  },
-  "license": "BUSL-1.1",
-  "maintainers": [
-    {
-      "name": "Backendery",
-      "email": "hey@backendery.io",
-      "url": "https://github.com/backendery"
-    }
-  ],
-  "scripts": {
-    "build": "pnpm vite build",
-    "dev": "pnpm vite --host --config=vite.config.ts --clearScreen=false",
-    "party": "pnpm partytown copylib 'public/~partytown'"
-  },
   "browserslist": [
     "> 0.25%",
     "last 2 versions",
@@ -33,7 +11,6 @@
     "axios": "~1.7.7",
     "axios-retry": "~4.5.0",
     "formik": "~2.4.6",
-    "framer-motion": "~11.9.0",
     "overlayscrollbars": "~2.10.0",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
@@ -48,6 +25,7 @@
     "use-scramble": "~2.2.15",
     "yup": "~1.4.0"
   },
+  "description": "A small React.js single-page app that serves as a homepage for the Backendery digital studio",
   "devDependencies": {
     "@beardeddudes/vite-config": "~0.1.*",
     "@types/overlayscrollbars": "~1.12.5",
@@ -60,5 +38,30 @@
   },
   "engines": {
     "node": "~20.18.1"
-  }
+  },
+  "license": "BUSL-1.1",
+  "maintainers": [
+    {
+      "email": "hey@backendery.io",
+      "name": "Backendery",
+      "url": "https://github.com/backendery"
+    }
+  ],
+  "name": "@backendery/w3s",
+  "private": true,
+  "repository": {
+    "directory": "packages/w3s",
+    "type": "git",
+    "url": "git+https://github.com/backendery/backendery.git"
+  },
+  "scripts": {
+    "build": "pnpm vite build",
+    "dev": "pnpm vite --host --config=vite.config.ts --clearScreen=false",
+    "party": "pnpm partytown copylib 'public/~partytown'"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "version": "0.1.1"
 }
