@@ -1,4 +1,3 @@
-import { Partytown } from "@qwik.dev/partytown/react"
 import { useEffect, useState } from "react"
 import { RouterProvider } from "react-router-dom"
 
@@ -27,7 +26,6 @@ const App: React.FC = () => {
 
   return (
     <AppProvider>
-      <Partytown debug={import.meta.env.DEV} forward={["dataLayer.push"]} />
       {isLoading ? <Preloader /> : <RouterProvider router={Router} />}
     </AppProvider>
   )

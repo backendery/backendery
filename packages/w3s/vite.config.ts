@@ -1,7 +1,6 @@
 import path from "node:path"
 
 import { configureReact as configure } from "@beardeddudes/vite-config"
-import { partytownRollup } from "@qwik.dev/partytown/utils"
 import { normalizePath } from "vite"
 
 /**
@@ -73,16 +72,12 @@ export default configure(
             "react-core": ["react", "react-dom"],
             "router": ["react-router", "react-router-dom"],
             "ui-components": ["overlayscrollbars", "react-fast-marquee", "react-typed", "use-scramble"],
-            "utils": ["@qwik.dev/partytown", "react-responsive", "react-use", "sanitize.css"],
+            "utils": ["react-responsive", "react-use", "sanitize.css"],
           },
           preserveModules: false,
           sourcemap: isDevelopment,
         },
-        plugins: [
-          partytownRollup({
-            dest: normalizePath(path.resolve(__dirname, "public", "~partytown")),
-          }),
-        ],
+        plugins: [],
       },
       sourcemap: isDevelopment,
       target: "esnext",
@@ -123,7 +118,6 @@ export default configure(
         "sanitize.css",
       ],
       exclude: [
-        "@qwik.dev/partytown", // Third-party script loader
         "@sentry/react", // Error monitoring, better loaded separately
       ],
     },

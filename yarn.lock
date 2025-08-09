@@ -1316,7 +1316,6 @@ __metadata:
   resolution: "@backendery/w3s@workspace:packages/w3s"
   dependencies:
     "@beardeddudes/vite-config": "npm:~0.1.*"
-    "@qwik.dev/partytown": "npm:~0.11.0"
     "@sentry/react": "npm:~9.12.0"
     "@types/overlayscrollbars": "npm:~1.12.5"
     "@types/react": "npm:~18.3.8"
@@ -4019,17 +4018,6 @@ __metadata:
   version: 4.13.0-52.integration-mobc-upstream-d100a9299fcb9cffb064301998e9a94ce2722c49
   resolution: "@prisma/prisma-fmt-wasm@npm:4.13.0-52.integration-mobc-upstream-d100a9299fcb9cffb064301998e9a94ce2722c49"
   checksum: 10c0/ac6897de183adc873e6082fee294644055df88469e421307814fdbf4829cb626fd93163fbcbd81fd3e584819a4f3548e8dfad90f0ca8033b97e1bf892c631c0a
-  languageName: node
-  linkType: hard
-
-"@qwik.dev/partytown@npm:~0.11.0":
-  version: 0.11.0
-  resolution: "@qwik.dev/partytown@npm:0.11.0"
-  dependencies:
-    dotenv: "npm:^16.4.7"
-  bin:
-    partytown: bin/partytown.cjs
-  checksum: 10c0/f09a3dcfe32959e05fe79e1d171c65979b5ac1ce94e1b6dc27a45a3e6826091210df31bced4c06821c6146cb36dd23cd7011fcff9c65c91d8da2bfb33db09682
   languageName: node
   linkType: hard
 
@@ -7302,7 +7290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.0, dotenv@npm:^16.4.7":
+"dotenv@npm:^16.0.0":
   version: 16.5.0
   resolution: "dotenv@npm:16.5.0"
   checksum: 10c0/5bc94c919fbd955bf0ba44d33922a1e93d1078e64a1db5c30faeded1d996e7a83c55332cb8ea4fae5a9ca4d0be44cbceb95c5811e70f9f095298df09d1997dd9
