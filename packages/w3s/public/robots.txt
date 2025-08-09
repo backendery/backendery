@@ -1,13 +1,37 @@
-# Allow Googlebot access to all pages
-User-agent: Googlebot
+# Default rules for all search engines
+User-agent: *
 Allow: /
 
-# Deny Yandex access to all pages of the site
+# Block all Yandex bots
 User-agent: Yandex
 Disallow: /
 
-# Deny access to .htaccess to all search engines
-User-agent: *
-Disallow: /.htaccess
+User-agent: YandexBot
+Disallow: /
 
+User-agent: YandexImages
+Disallow: /
+
+User-agent: YandexDirect
+Disallow: /
+
+User-agent: YandexMedia
+Disallow: /
+
+User-agent: YandexMobileBot
+Disallow: /
+
+User-agent: YandexMetrika
+Disallow: /
+
+User-agent: YandexTurbo
+Disallow: /
+
+User-agent: YandexVideo
+Disallow: /
+
+User-agent: YandexWebmaster
+Disallow: /
+
+# Sitemap location
 Sitemap: https://backendery.io/sitemap.xml
