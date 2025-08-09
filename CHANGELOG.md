@@ -1,5 +1,10 @@
 # Version history
 
+## 0.1.3 (09-08-2025)
+
+### Refactor
+- rejection the `Partytown` library as it breaks the connection to `GTM`
+
 ## 0.1.2 (09-08-2025)
 
 ### Chores
