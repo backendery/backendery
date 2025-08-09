@@ -8,9 +8,17 @@ import NotFoundPage from "./NotFoundPage"
 
 const PathSentinel = ({ children }: { children: React.ReactNode }) => {
   const currentPath = window.location.pathname
-  const hasSearchParams = window.location.search !== ""
+  const searchParams = new URLSearchParams(window.location.search)
 
-  if (currentPath !== "/" || hasSearchParams) {
+  // Allowed keys from GTM
+  const allowedGtmParams = ["gtm_debug", "gtm_preview", "id"]
+
+  const hasSearchParams = searchParams.toString() !== ""
+  const isFromGtm = Array.from(searchParams.keys()).some(key =>
+    allowedGtmParams.includes(key)
+  )
+
+  if (currentPath !== "/" || (hasSearchParams && !isFromGtm)) {
     return <NotFoundPage />
   }
 
