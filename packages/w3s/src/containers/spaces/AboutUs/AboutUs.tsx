@@ -93,8 +93,8 @@ const AboutUs: FC = () => {
         </div>
         <div className={"about-us__founder-image-wrapper"}>
           <picture>
-            <source className={"about-us__founder-image"} srcSet={"/assets/images/founder.webp"} type={"image/webp"} />
             <source className={"about-us__founder-image"} srcSet={"/assets/images/founder.avif"} type={"image/avif"} />
+            <source className={"about-us__founder-image"} srcSet={"/assets/images/founder.webp"} type={"image/webp"} />
             <img
               className={"about-us__founder-image"}
               src={"/assets/images/founder.jpg"}
