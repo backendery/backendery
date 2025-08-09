@@ -446,10 +446,7 @@ const LetsStart: FC = () => {
           minInterval={1_250}
           maxInterval={2_500}
           initialSymbols={"....."}
-          style={{
-            color: "#00df82",
-            width: "50px",
-          }}
+          style={{ color: "#00df82" }}
         />
       </div>
       <p className={"lets-start__decorative-abstract-phrase"}>{"You've got mail in /var/mail/..."}</p>

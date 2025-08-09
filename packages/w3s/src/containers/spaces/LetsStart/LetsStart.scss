@@ -44,8 +44,10 @@
   }
 
   &__decorative-animate-signal-strip-wrapper {
-    grid-row: 2;
-    grid-column: 2;
+    @include adaptive-value($property: "font-size", $from: 14, $to: 16);
+
+    font-weight: 500;
+    user-select: none;
 
     @media screen and (width <= $sm) {
       display: none;
