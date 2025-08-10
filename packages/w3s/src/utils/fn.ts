@@ -47,9 +47,9 @@ export function getElementWidth(selector: string): number {
     throw new Error("the specified selector could not be found")
   }
 
-  const width: number = parseInt(window.getComputedStyle(elt).getPropertyValue("width"))
+  const widthStr: string = window.getComputedStyle(elt).getPropertyValue("width")
 
-  return width
+  return parseInt(widthStr, 10)
 }
 
 /**
@@ -72,9 +72,9 @@ export function getElementHeight(selector: string): number {
     throw new Error("the specified selector could not be found")
   }
 
-  const height: number = parseInt(window.getComputedStyle(elt).getPropertyValue("height"))
+  const heightStr: string = window.getComputedStyle(elt).getPropertyValue("height")
 
-  return height
+  return parseInt(heightStr, 10)
 }
 
 /**
@@ -204,8 +204,5 @@ export function runWithTimeout(
 ): void {
   timeoutRef.current && clearTimeout(timeoutRef.current)
   // Set a new timeout and store its ID in the reference
-  timeoutRef.current = window.setTimeout(() => {
-    // Execute the provided function after the timeout
-    triggerFn && triggerFn()
-  }, timeout)
+  timeoutRef.current = window.setTimeout(() => { triggerFn && triggerFn() }, timeout)
 }
