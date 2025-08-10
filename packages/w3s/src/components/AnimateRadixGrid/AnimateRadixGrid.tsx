@@ -180,7 +180,21 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
    * @type {string[]} cells - An array representing the current state of symbols in the grid.
    * @function setCells - Function to update the `cells` state with new symbols or changes.
    */
-  const [cells, setCells] = useState<string[]>(createInitialCells())
+  const [cells, setCells] = useState<string[]>(
+    Array.from(
+      { length: props.rows * props.cols },
+      () => ""
+    )
+  )
+  /**
+   * State that indicates whether the component has completed hydration on the client side.
+   * This ensures that any client-only logic (like random value generation or animations)
+   * runs only after React has fully attached event handlers to the server-rendered markup.
+   *
+   * @type {boolean} isHydrate - A boolean that becomes `true` once hydration is finished.
+   * @function setIsHydrate - Function to update the `isHydrate` state.
+   */
+  const [isHydrate, setIsHydrate] = useState<boolean>(false)
   /**
    * State that tracks the visibility status of the component. This state determines whether the
    * grid and its animations should be rendered or not.
@@ -218,6 +232,10 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
   // Set of unreachable cell indices
   const unreachableSet = new Set(props.unreachableCells?.map(([row, col]) => row * props.cols + col))
 
+  useEffect(() => { setIsHydrate(true) }, [])
+
+  useEffect(() => { setCells(createInitialCells()) }, [])
+
   useEffect(() => {
     // Intersection Observer to detect when the component is in view
     const observer = new IntersectionObserver(
@@ -239,7 +257,7 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
   }, [])
 
   useEffect(() => {
-    if (!isVisible) return // Don't animate if the component is not visible
+    if (!isHydrate || !isVisible) return; // Don't animate if the component is not visible
 
     // Animation loop that updates cells at random intervals
     const step = (currentTime: number) => {
@@ -266,7 +284,7 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
 
     // Clean up the animation on component unmount
     return () => cancelAnimationFrame(animationFrame)
-  }, [isVisible, props.minInterval, props.maxInterval, updateRandomCell])
+  }, [isHydrate, isVisible, props.minInterval, props.maxInterval])
 
   return (
     <div
