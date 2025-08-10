@@ -9,7 +9,7 @@
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noEmitHelpers": true,
     "noFallthroughCasesInSwitch": true,
@@ -26,7 +26,7 @@
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "target": "ESNext",
+    "target": "esnext",
     "types": [
       "@types/overlayscrollbars",
       "@types/react",
