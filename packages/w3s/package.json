@@ -33,7 +33,8 @@
     "@types/react-helmet-async": "~1.0.3",
     "@types/react-responsive": "~8.0.8",
     "@types/react-router": "~5.1.20",
-    "sass-true": "~8.1.0"
+    "sass-true": "~8.1.0",
+    "vite-prerender-plugin": "~0.5.11"
   },
   "engines": {
     "node": "~20.18.1"
@@ -61,5 +62,6 @@
     "*.css",
     "*.scss"
   ],
+  "type": "module",
   "version": "0.1.3"
 }

@@ -2,6 +2,7 @@ import path from "node:path"
 
 import { configureReact as configure } from "@beardeddudes/vite-config"
 import { normalizePath } from "vite"
+import { vitePrerenderPlugin } from 'vite-prerender-plugin';
 
 /**
  * Retrieves the value of an environment variable.
@@ -69,15 +70,17 @@ export default configure(
             "forms": ["formik", "yup"],
             "monitoring": ["@sentry/react", "react-error-boundary"],
             "net": ["axios", "axios-retry"],
-            "react-core": ["react", "react-dom"],
+            "reactCore": ["react", "react-dom"],
             "router": ["react-router", "react-router-dom"],
-            "ui-components": ["overlayscrollbars", "react-fast-marquee", "react-typed", "use-scramble"],
+            "uiComponents": ["overlayscrollbars", "react-fast-marquee", "react-typed", "use-scramble"],
             "utils": ["react-responsive", "react-use", "sanitize.css"],
           },
           preserveModules: false,
           sourcemap: isDevelopment,
         },
-        plugins: [],
+        plugins: [
+          vitePrerenderPlugin({ renderTarget: "#root" }),
+        ],
       },
       sourcemap: isDevelopment,
       target: "esnext",
