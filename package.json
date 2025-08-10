@@ -22,7 +22,6 @@
     "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
     "husky": "npx husky",
     "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
-    "party": "yarn workspace @backendery/w3s run party",
     "prettier": "npx prettier",
     "sort-pkg": "npx sort-package-json",
     "stylelint": "npx stylelint"
