@@ -1,5 +1,13 @@
 # Version history
 
+## 0.2.0 (10-08-2025)
+
+### Features
+- add a plugin and rewrite the code(`index`, `App` and `Router`) for `server-side rendering`
+
+### Refactor
+- fix the `AnimateRadixGrid` component that was causing `server-side rendering` to break
+
 ## 0.1.3 (09-08-2025)
 
 ### Refactor
