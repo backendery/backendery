@@ -25,6 +25,7 @@ node_modules/
 .env
 .env.*
 .eslintcache
+.htaccess
 .stylelintcache
 .vscode/*.code-snippets
 .vscode/extensions.json
