@@ -1,8 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install",
+  "outputDirectory": "dist",
   "headers": [
     {
+      "source": "/(.*)",
       "headers": [
         {
           "key": "X-Content-Type-Options",
@@ -24,34 +27,22 @@
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
         }
-      ],
-      "source": "/(.*)"
+      ]
     },
     {
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
         }
-      ],
-      "source": "/assets/(.*)"
+      ]
     }
   ],
-  "installCommand": "pnpm install",
-  "outputDirectory": "dist",
-  "routes": [
+  "rewrites": [
     {
-      "dest": "/assets/$1",
-      "src": "/assets/(.*)"
-    },
-    {
-      "dest": "/$1",
-      "src": "/(.*\\..+)"
-    },
-    {
-      "dest": "/index.html",
-      "src": "/(.*)"
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
     }
-  ],
-  "version": 2
+  ]
 }
