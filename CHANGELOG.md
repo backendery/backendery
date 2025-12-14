@@ -1,5 +1,18 @@
 # Version history
 
+## 0.3.0 (14-12-2025)
+
+### Features
+- add error and failure logging to `Sentry`
+
+### Refactor
+- upgrade versions of multiple libraries, including migrating to `React 19`
+
+### Chores
+- switch from `VS Code` to `Cursor`
+- switch the deployment platform from `Hostinger` to `Vercel`
+- change the monorepo to a simplified structure
+
 ## 0.2.0 (10-08-2025)
 
 ### Features
