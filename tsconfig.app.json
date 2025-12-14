@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "checkJs": false,
+    "erasableSyntaxOnly": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedSideEffectImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
+    "rootDir": ".",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "types": ["vite/client"],
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
+  },
+  "exclude": ["build", "coverage", "dist", "node_modules", "public"],
+  "include": [
+    "./src/**/*.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/sentry.client.config.ts",
+    "./vite-environment.d.ts",
+    "./vite.config.ts"
+  ]
+}

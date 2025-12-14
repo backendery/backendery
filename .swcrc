@@ -1,0 +1,29 @@
+{
+  "env": {
+    "targets": "defaults"
+  },
+  "jsc": {
+    "externalHelpers": true,
+    "parser": {
+      "syntax": "typescript",
+      "dts": true,
+      "tsx": true
+    },
+    "target": "esnext",
+    "transform": {
+      "react": {
+        "development": true,
+        "refresh": true,
+        "pragmaFrag": "React.Fragment",
+        "runtime": "automatic",
+        "throwIfNamespace": true,
+        "useBuiltins": true
+      }
+    }
+  },
+  "module": {
+    "type": "es6"
+  },
+  "sourceMaps": true,
+  "minify": false
+}

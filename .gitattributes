@@ -4,6 +4,7 @@
 *.jpeg binary
 *.jpg  binary
 *.png  binary
+*.avif binary
 *.webp binary
 
-yarn.lock merge=ours
+pnpm-lock.yaml merge=ours

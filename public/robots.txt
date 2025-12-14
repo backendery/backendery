@@ -1,0 +1,37 @@
+# Default rules for all search engines
+User-agent: *
+Allow: /
+
+# Block all Yandex bots
+User-agent: Yandex
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: YandexImages
+Disallow: /
+
+User-agent: YandexDirect
+Disallow: /
+
+User-agent: YandexMedia
+Disallow: /
+
+User-agent: YandexMobileBot
+Disallow: /
+
+User-agent: YandexMetrika
+Disallow: /
+
+User-agent: YandexTurbo
+Disallow: /
+
+User-agent: YandexVideo
+Disallow: /
+
+User-agent: YandexWebmaster
+Disallow: /
+
+# Sitemap location
+Sitemap: https://backendery.digital/sitemap.xml

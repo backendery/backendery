@@ -1,0 +1,56 @@
+@use "~/styles/variables" as vars;
+@use "~/styles/mixins" as mxs;
+
+.main {
+  @include mxs.adaptive-value($property: "padding-left", $from: 280, $to: 50);
+  @include mxs.adaptive-value($property: "padding-right", $from: 280, $to: 50);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: vars.$width-in-dvw;
+  height: vars.$height-in-dvh;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  user-select: none;
+
+  &__logo {
+    position: relative;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__decorative-animate-lines-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: -10;
+  }
+
+  &__title {
+    @include mxs.adaptive-value($property: "font-size", $from: 110, $to: 24);
+
+    color: vars.$secondary-color;
+    line-height: 110%;
+    text-align: center;
+  }
+
+  &__show-all {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    color: vars.$accent-color;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}

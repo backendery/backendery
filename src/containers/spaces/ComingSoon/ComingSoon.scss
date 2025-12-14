@@ -1,0 +1,14 @@
+@use "~/styles/variables" as vars;
+@use "~/styles/mixins" as mxs;
+
+.coming-soon {
+  @include mxs.adaptive-value($property: "padding", $from: 130, $to: 50);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: vars.$width-in-dvw;
+  height: vars.$height-in-dvh;
+  text-align: center;
+  user-select: none;
+}

@@ -1,9 +1,8 @@
----
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: feature
-assignees: <viewer>
+## Features Creation Request
+
+name: Feature name  
+about: Describe the feature you want to create  
+assignees: [viewer(s)]  
 
 ---
 

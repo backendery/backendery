@@ -1,0 +1,162 @@
+@use "~/styles/variables" as vars;
+@use "~/styles/mixins" as mxs;
+
+.we-do {
+  @include mxs.adaptive-value($property: "padding", $from: 130, $to: 50);
+
+  display: grid;
+  grid-template-rows: auto 10% 1fr auto;
+  grid-template-columns: 1fr 1fr auto;
+  width: vars.$width-in-dvw;
+  height: vars.$height-in-dvh;
+  user-select: none;
+
+  &__title {
+    @include mxs.adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: vars.$lg);
+
+    font-weight: 600;
+    line-height: 110%;
+  }
+
+  &__decorative-corner {
+    grid-column: 3;
+    align-self: end;
+    width: 16px;
+    height: 16px;
+    border-bottom: 2px solid vars.$accent-color;
+    border-left: 2px solid vars.$accent-color;
+  }
+
+  &__menu {
+    @include mxs.adaptive-value($property: "gap", $from: 24, $to: 14);
+
+    display: flex;
+    flex-direction: column;
+    grid-row: 3;
+
+    @media screen and (width <= vars.$md) {
+      @include mxs.adaptive-value($property: "margin-top", $from: 40, $to: 30);
+      @include mxs.adaptive-value($property: "margin-bottom", $from: 40, $to: 20);
+
+      grid-row: 2;
+      grid-column: 1/-1;
+    }
+  }
+
+  &__menu-item {
+    @include mxs.adaptive-value($property: "font-size", $from: 28, $to: 16);
+    @include mxs.adaptive-value($property: "gap", $from: 15, $to: 8);
+
+    display: flex;
+    align-items: center;
+    line-height: 120%;
+  }
+
+  &__menu-item-symbols {
+    color: rgba($color: vars.$secondary-color, $alpha: 30%);
+
+    &.active {
+      color: vars.$secondary-color;
+    }
+  }
+
+  &__menu-item-title {
+    padding: 4px 6px;
+    color: rgba($color: vars.$secondary-color, $alpha: 30%);
+    cursor: pointer;
+
+    &:hover {
+      color: vars.$secondary-color;
+    }
+
+    &.active {
+      color: vars.$primary-color;
+      font-weight: 500;
+      background-color: vars.$secondary-color;
+    }
+  }
+
+  &__description-wrapper {
+    @include mxs.adaptive-value($property: "row-gap", $from: 30, $to: 20);
+
+    display: grid;
+    grid-row: 3/-1;
+    grid-column: 2;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr;
+
+    @media screen and (width <= vars.$md) {
+      grid-column: 1/-1;
+      grid-template-rows: auto 1fr;
+    }
+  }
+
+  &__decorative-animate-signal-strip-wrapper {
+    @include mxs.adaptive-value($property: "font-size", $from: 14, $to: 16);
+
+    font-weight: 500;
+    user-select: none;
+
+    @media screen and (width <= vars.$md) {
+      display: none;
+    }
+  }
+
+  &__description {
+    max-width: 450px;
+
+    @media screen and (width <= vars.$md) {
+      margin-right: 20px;
+    }
+  }
+
+  &__description-highlight {
+    color: vars.$accent-color;
+  }
+
+  &__decorative-stdout-row-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: end;
+    max-width: 450px;
+    margin-right: 100px;
+    color: rgba($color: vars.$secondary-color, $alpha: 30%);
+    text-wrap: nowrap;
+
+    @media screen and (width <= vars.$sm) {
+      margin-right: 0;
+    }
+
+    @media screen and (width <= vars.$xs) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__decorative-text {
+    grid-row: 4;
+    align-self: end;
+    color: vars.$accent-color;
+
+    @media screen and (width <= vars.$md) {
+      display: none;
+    }
+  }
+
+  &__decorative-animate-radix-grid-wrapper {
+    display: flex;
+    grid-row: 3/5;
+    grid-column: 3;
+    align-self: end;
+    color: rgba($color: vars.$secondary-color, $alpha: 10%);
+
+    @media screen and (width <= vars.$sm) {
+      display: none;
+    }
+  }
+
+  @media screen and (width <= vars.$md) {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto auto;
+  }
+}

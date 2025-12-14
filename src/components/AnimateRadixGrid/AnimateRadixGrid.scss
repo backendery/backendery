@@ -1,0 +1,19 @@
+@use "~/styles/variables" as vars;
+
+.animate-radix-grid {
+  display: grid;
+  gap: 3px 20px;
+  font-size: 13px;
+
+  &__cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($color: vars.$secondary-color, $alpha: 20%);
+    user-select: none;
+
+    &.unreachable {
+      visibility: hidden;
+    }
+  }
+}

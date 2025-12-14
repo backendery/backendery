@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "composite": false,
+    "noEmit": true
+  },
+  "exclude": ["node_modules", "dist"],
+  "extends": "./tsconfig.app.json",
+  "include": ["src/**/*", "*.ts", "*.tsx", "*.js", "*.jsx"]
+}
