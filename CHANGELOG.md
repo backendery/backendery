@@ -1,5 +1,10 @@
 # Version history
 
+## 0.3.1 (14-12-2025)
+
+### Chores
+- change the `Vercel` configuration file
+
 ## 0.3.0 (14-12-2025)
 
 ### Features
