@@ -1,6 +1,7 @@
 # Default rules for all search engines
 User-agent: *
 Allow: /
+Disallow: /*vercel.app
 
 # Block all Yandex bots
 User-agent: Yandex
