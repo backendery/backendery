@@ -2,6 +2,7 @@ import './index.scss';
 /* eslint-disable import/no-unassigned-import */
 // This import MUST come first to initialize Sentry early
 import './sentry.client.config';
+
 /* eslint-enable import/no-unassigned-import */
 import { type FallbackRender } from '@sentry/react';
 import * as Sentry from '@sentry/react';
@@ -33,7 +34,7 @@ const app = (
     }}
     fallback={ErrorBoundaryFallback}
     showDialog={!isDevelopment} // Show Sentry feedback dialog only in production
-    >
+  >
     {isDevelopment ? (
       // In dev mode, use StrictMode for additional React checks
       <StrictMode>
@@ -48,10 +49,10 @@ const app = (
 const rootElement = document.querySelector('#root') as HTMLDivElement;
 
 createRoot(rootElement, {
+  // Callback called when React automatically recovers from errors.
+  onRecoverableError: Sentry.reactErrorHandler(),
   // Callback called when an error is thrown and not caught by an Error Boundary.
   onUncaughtError: Sentry.reactErrorHandler((error: any, errorInfo: React.ErrorInfo) => {
     console.warn('Uncaught error', error, errorInfo.componentStack);
   }),
-  // Callback called when React automatically recovers from errors.
-  onRecoverableError: Sentry.reactErrorHandler(),
 }).render(app);

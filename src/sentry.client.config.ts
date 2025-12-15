@@ -18,13 +18,13 @@ const isValidDsn = dsn.length > 0 && !dsn.includes('examplePublicKey');
 const enabled = !debug && isValidDsn;
 
 Sentry.init({
-  debug,
-  dsn,
-  enabled,
-
   // Maximum data for errors
   // More context: user action chain (clicks, XHR, console), deep objects in extra/context, etc.
   attachStacktrace: import.meta.env.VITE_SENTRY_ATTACH_STACKTRACE,
+  debug,
+  dsn,
+
+  enabled,
   environment: import.meta.env.VITE_SENTRY_ENVIRONMENT,
 
   // Maximum signals on the frontend
