@@ -6,9 +6,7 @@
 
 <div align="center">
 
-![GitHub Deploy](https://img.shields.io/github/deployments/backendery/backendery/hostinger?style=flat&logoColor=f1f7f7&labelColor=030f0f&color=00df82)
 ![GitHub Tag](https://img.shields.io/github/v/tag/backendery/backendery?sort=semver&style=flat&logoColor=f1f7f7&labelColor=030f0f&color=00df82)
-
 
 </div>
 <!-- markdownlint-restore -->
@@ -53,6 +51,5 @@ Have a project in mind? Ideas? We'd love to hear about it.
 Get in touch or visit our [site](https://backendery.digital) 🌐
 
 <div align="center">
-  <p>
-  <strong>© 2025, Backendery.</strong> All rights reserved.</p>
+  <p>© 2025, Backendery. All rights reserved.</p>
 </div>
