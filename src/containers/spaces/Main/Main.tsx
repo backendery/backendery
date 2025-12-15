@@ -21,7 +21,7 @@ const Main: React.FC<MainProps> = ({ zoomOut }) => {
       </div>
       <div className="main__title">Reliable backend for your projects</div>
       <div className="main__show-all" onClick={zoomOut}>
-        Show All
+        {'~/show --all'}
       </div>
     </div>
   );

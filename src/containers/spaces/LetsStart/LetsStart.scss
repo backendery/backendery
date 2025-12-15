@@ -141,6 +141,7 @@
     font-weight: 500;
     line-height: 120%;
     text-transform: uppercase;
+    border: 1px solid rgba($color: vars.$accent-color, $alpha: 100%);
     background-color: vars.$accent-color;
 
     svg {
@@ -295,7 +296,9 @@
     font-weight: 500;
     line-height: 120%;
     text-transform: uppercase;
+    border: 1px solid rgba($color: vars.$accent-color, $alpha: 100%);
     background-color: vars.$accent-color;
+
 
     @media screen and (width <= vars.$xs) {
       width: 100%;
@@ -378,6 +381,7 @@
     color: vars.$secondary-color;
     text-align: left;
     background-color: transparent;
+    border: 1px solid rgba($color: vars.$primary-color, $alpha: 100%);
     border-bottom: 1px dashed rgba($color: vars.$secondary-color, $alpha: 15%);
     border-radius: 0;
 
