@@ -1,5 +1,11 @@
 # Version history
 
+## 0.3.2 (15-12-2025)
+
+### Features
+- add a hook for `GTM` integration
+- add `dataLayer` to the global variable `window`
+
 ## 0.3.1 (14-12-2025)
 
 ### Chores
