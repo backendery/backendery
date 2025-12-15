@@ -1,5 +1,13 @@
 # Version history
 
+## 0.3.3 (15-12-2025)
+
+### Refactor
+- fix the styles of `inputs` and `buttons`
+
+### Chores
+- add libraries and add edits to style configuration files
+
 ## 0.3.2 (15-12-2025)
 
 ### Features
