@@ -3,6 +3,12 @@ import { type SVGProps } from 'react';
 
 import { type EvarsSchema } from './evars-schema.config';
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 declare module '*.svg?react' {
   const ReactComponent: React.FC<SVGProps<SVGSVGElement>>;
   export default ReactComponent;
