@@ -3,6 +3,7 @@
 .idea/
 .npm/
 .swc/
+.vercel/
 .vscode/
 build/
 coverage/
@@ -39,5 +40,6 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
+
 
 
