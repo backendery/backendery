@@ -9,7 +9,7 @@ Initial License Date: 2025-04-22
 Additional Use Grant: None  
 Change Date: None  
 Change License: None  
-Contact Information: hey@backendery.digital
+Contact Information: hi@backendery.digital
 
 Terms
 
