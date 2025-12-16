@@ -1,11 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install",
-  "outputDirectory": "dist",
+  "git": {
+    "deploymentEnabled": false
+  },
+  "github": {
+    "autoAlias": false,
+    "autoJobCancelation": true,
+    "silent": false
+  },
   "headers": [
     {
-      "source": "/(.*)",
       "has": [
         {
           "type": "host",
@@ -37,22 +42,44 @@
           "key": "X-XSS-Protection",
           "value": "1; mode=block"
         }
-      ]
+      ],
+      "source": "/(.*)"
     },
     {
-      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
         }
-      ]
+      ],
+      "source": "/assets/(.*)"
+    }
+  ],
+  "installCommand": "pnpm install",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "destination": "https://backendery.digital",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?<project>.*)\\.vercel\\.app"
+        }
+      ],
+      "missing": [
+        {
+          "type": "host",
+          "value": ".*\\.preview\\.backendery\\.digital"
+        }
+      ],
+      "permanent": false,
+      "source": "/"
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!assets/).*)",
-      "destination": "/index.html"
+      "destination": "/index.html",
+      "source": "/((?!assets/).*)"
     }
   ]
 }
