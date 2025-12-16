@@ -70,6 +70,14 @@ jobs:
             echo "alias_url=${{ steps.deploy.outputs.deployment_url }}" >> $GITHUB_OUTPUT
           fi
 
+      - name: Remove auto-generated project alias
+        continue-on-error: true
+        run: |
+          # Remove the project alias (not the deployment URL!)
+          PROJECT_ALIAS="${{ secrets.VERCEL_PROJECT_ID }}-iaroslaff-backendery.vercel.app"
+          vercel alias rm $PROJECT_ALIAS --yes --token=${{ secrets.VERCEL_TOKEN }} || true
+          echo "🧹 Cleaned up auto-generated alias"
+
       - name: Comment PR with deployment URL
         uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
