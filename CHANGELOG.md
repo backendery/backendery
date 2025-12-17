@@ -1,5 +1,16 @@
 # Version history
 
+## 0.3.4 (18-12-2025)
+
+### Features
+- add deployment files `GitHub Actions` to `production` and `preview`
+
+### Refactor
+- update the `Vercel` configuration file
+
+### Chores
+- add badges
+
 ## 0.3.3 (15-12-2025)
 
 ### Refactor
