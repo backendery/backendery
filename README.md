@@ -6,6 +6,8 @@
 
 <div align="center">
 
+![Vercel Preview Deployment](https://img.shields.io/github/actions/workflow/status/backendery/backendery/preview.yaml?style=flat&logo=vercel&logoColor=f1f7f7&label=preview&labelColor=030f0f&color=00df82)
+![Vercel Production Deployment](https://img.shields.io/github/actions/workflow/status/backendery/backendery/production.yaml?style=flat&logo=vercel&logoColor=f1f7f7&label=production&labelColor=030f0f&color=00df82)
 ![GitHub Tag](https://img.shields.io/github/v/tag/backendery/backendery?sort=semver&style=flat&logoColor=f1f7f7&labelColor=030f0f&color=00df82)
 
 </div>
