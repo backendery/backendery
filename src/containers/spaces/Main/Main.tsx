@@ -9,11 +9,9 @@ type MainProps = {
 const Main: React.FC<MainProps> = ({ zoomOut }) => {
   return (
     <div className="main">
-      <div className="main__logo">
+      <div className="main__brand-logo">
         <picture>
-          <source srcSet="/assets/images/logo.avif" type="image/avif" />
-          <source srcSet="/assets/images/logo.webp" type="image/webp" />
-          <img alt="Backendery" loading="lazy" src="/assets/images/logo.svg" />
+          <img alt="Backendery" loading="lazy" src="/assets/icons/brand-logo.svg" />
         </picture>
       </div>
       <div className="main__decorative-animate-lines-wrapper">

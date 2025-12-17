@@ -16,10 +16,18 @@
   padding-bottom: 40px;
   user-select: none;
 
-  &__logo {
+  &__brand-logo {
+    @include mxs.adaptive-value($property: "height", $from: 40, $to: 20);
+    @include mxs.adaptive-value($property: "width", $from: 160, $to: 140);
+
     position: relative;
     object-fit: cover;
     object-position: center;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__decorative-animate-lines-wrapper {
