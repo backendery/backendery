@@ -13,6 +13,9 @@ on:
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      deployments: write
     steps:
       - uses: actions/checkout@v3
 
@@ -70,16 +73,32 @@ jobs:
             echo "alias_url=${{ steps.deploy.outputs.deployment_url }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Comment PR with deployment URL
+      - name: Create deployment annotation
         uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
+        if: startsWith(github.ref, 'refs/heads/')
         with:
           script: |
             const url = '${{ steps.alias.outputs.alias_url }}';
             const branch = '${{ steps.extract_branch.outputs.branch }}';
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+
+            const deployment = await github.rest.repos.createDeployment({
+              auto_merge: false,
+              description: `Preview: ${branch}`,
+              environment: 'preview',
+              owner: context.repo.owner,
+              production_environment: false,
+              ref: context.sha,
+              repo: context.repo.repo,
+              required_contexts: [],
+              transient_environment: true
+            });
+
+            await github.rest.repos.createDeploymentStatus({
+              deployment_id: deployment.data.id,
+              description: `🚀 Preview: ${branch} | ${url}`,
+              environment_url: url,
+              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `🚀 **Preview deployed!**\n\n🔗 **URL:** ${url}\n\n📝 _Branch: \`${branch}\`_`
-            })
+              state: 'success'
+            });

@@ -9,6 +9,9 @@ on:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      deployments: write
     steps:
       - uses: actions/checkout@v3
 
@@ -23,7 +26,7 @@ jobs:
           run_install: false
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: pnpm i -g vercel@latest
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -38,15 +41,30 @@ jobs:
           echo "deployment_url=$URL" >> $GITHUB_OUTPUT
           echo "🚀 Production deployed to: $URL"
 
-      - name: Comment deployment URL
+      - name: Create deployment annotation
         uses: actions/github-script@v6
-        if: github.event_name == 'push'
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           script: |
             const tag = context.ref.replace('refs/tags/', '');
-            github.rest.repos.createCommitComment({
+            const deploymentUrl = '${{ steps.deploy.outputs.deployment_url }}';
+
+            const deployment = await github.rest.repos.createDeployment({
+              auto_merge: false,
+              description: `Production ${tag}`,
+              environment: 'production',
+              owner: context.repo.owner,
+              ref: context.sha,
+              repo: context.repo.repo,
+              required_contexts: []
+            });
+
+            await github.rest.repos.createDeploymentStatus({
+              deployment_id: deployment.data.id,
+              description: `✅ ${tag} | Main: https://backendery.digital | Vercel: ${deploymentUrl}`,
+              environment_url: 'https://backendery.digital',
+              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              commit_sha: context.sha,
-              body: `✅ **Production ${tag} deployed!**\n\n🌐 **Main:** https://backendery.digital\n🔧 **Vercel:** ${{ steps.deploy.outputs.deployment_url }}`
-            })
+              state: 'success'
+            });
