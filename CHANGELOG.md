@@ -1,5 +1,10 @@
 # Version history
 
+## 0.3.5 (18-12-2025)
+
+### Refactor
+- rewrite the `Create deployment annotation` section
+
 ## 0.3.4 (18-12-2025)
 
 ### Features
