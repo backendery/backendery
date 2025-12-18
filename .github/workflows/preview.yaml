@@ -43,7 +43,7 @@ jobs:
           echo "📦 Deploying branch: $BRANCH as $CLEAN_BRANCH"
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: pnpm i -g vercel@latest
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
@@ -95,7 +95,7 @@ jobs:
 
             await github.rest.repos.createDeploymentStatus({
               deployment_id: deployment.data.id,
-              description: `🚀 Preview: ${branch} | ${url}`,
+              description: `Preview ${branch} deployed`,
               environment_url: url,
               log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               owner: context.repo.owner,
