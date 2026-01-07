@@ -70,32 +70,7 @@ export default defineConfig(({ mode }: { mode: string }) => {
       stringify: true,
     },
     optimizeDeps: {
-      include: [
-        // Sentry Monitoring
-        '@sentry/react',
-        // Core React
-        'react',
-        'react-dom',
-        // Routing
-        'react-router',
-        'react-router-dom',
-        // HTTP & Error handling
-        'axios',
-        'axios-retry',
-        'react-error-boundary',
-        // Forms & Validation
-        'formik',
-        'yup',
-        'zod',
-        // UI Components
-        'overlayscrollbars',
-        'react-fast-marquee',
-        'react-typed',
-        'use-scramble',
-        // Utilities
-        'react-responsive',
-        'react-use',
-      ],
+      include: [],
       exclude: [],
     },
     plugins: [
