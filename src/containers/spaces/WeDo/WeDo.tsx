@@ -4,9 +4,9 @@ import { type FC, useMemo, useState } from 'react';
 import { ReactTyped as Typed } from 'react-typed';
 import { useScramble } from 'use-scramble';
 
-import AnimateRadixGrid from '../../../components/AnimateRadixGrid/AnimateRadixGrid';
-import AnimateSignalStrip from '../../../components/AnimateSignalStrip/AnimateSignalStrip';
-import StdoutRow from '../../../components/StdoutRow/StdoutRow';
+import AnimateRadixGrid from '~/components/AnimateRadixGrid/AnimateRadixGrid';
+import AnimateSignalStrip from '~/components/AnimateSignalStrip/AnimateSignalStrip';
+import StdoutRow from '~/components/StdoutRow/StdoutRow';
 
 type IWeDoContent = {
   decorativeSymbols: string;
@@ -21,63 +21,63 @@ const weDoContents: IWeDoContent[] = [
   {
     decorativeSymbols: "=>",
     description: `
-      We develop high-performance server applications and APIs that ensure reliable
-      interaction between systems. Our solutions are tailored to meet specific business
-      needs, enhancing operational efficiency and scalability
-  `,
+      Engineered with Rust and Python for mission-critical systems. We build
+      distributed architectures, high-load APIs, and real-time data engines
+      where performance and memory safety are non-negotiable
+    `,
     id: 1,
     theses: [
-      "High-performance apps",
-      "Reliable system interaction",
-      "Scalability and operational"
+      "Low-latency services",
+      "Distr-Sys architecture",
+      "Cloud-native scalability"
     ],
-    title: "Server Apps && API"
+    title: "High-Performance Backend",
+  },
+  {
+    decorativeSymbols: "/~",
+    description: `
+      We go beyond simple wrappers. Our team develops autonomous AI agents
+      using RAG, tool-use, and multi-agent orchestration to solve complex
+      reasoning tasks and automate cognitive labor
+    `,
+    id: 2,
+    theses: [
+      "Custom RAG & Vector Search",
+      "Agentic workflows & Tool-use",
+      "Fine-tuning & Integration"
+    ],
+    title: "AI Agents & LLM Ops",
   },
   {
     decorativeSymbols: "@;",
     description: `
-      We integrate diverse services to create seamless and effective workflows. By
-      ensuring compatibility and efficiency, we help businesses streamline their processes
-      and improve overall productivity
-    `,
-    id: 2,
-    theses: [
-      "Seamless integration",
-      "Compatibility and efficiency",
-      "Streamlined processes"
-    ],
-    title: "Services Integration"
-  },
-  {
-    decorativeSymbols: "~/",
-    description: `
-      We create command-line tools and automation solutions to simplify routine tasks and
-      boost productivity. Our tools are designed to enhance user experience, allowing teams
-      to focus on more strategic initiatives
+      Developing next-gen interfaces where AI is a core feature, not an add-on.
+      From advanced bots for messengers to interactive web platforms, we deliver
+      seamless user experiences powered by real-time intelligence
     `,
     id: 3,
     theses: [
-      "Command-line tools",
-      "Routine task automation",
-      "Enhanced productivity"
+      "React.js || Next.js ecosys",
+      "Intelligent Chatbots & CLI",
+      "Real-time reactive UI"
     ],
-    title: "CLI && Automation Tools"
+    title: "Intelligence-Driven UX",
   },
   {
     decorativeSymbols: "&*",
     description: `
-      We develop bots for various platforms, including chatbots and user interaction
-      automation. These solutions enhance customer experience and engagement, providing
-      quick responses and improving service quality
+      Connecting the disconnected. We build sophisticated workflows using
+      Airflow, Camunda, or n8n to bridge legacy systems with modern AI capabilities,
+      eliminating manual data silos and operational bottlenecks
     `,
     id: 4,
     theses: [
-      "Multibots",
-      "Customer enhancement",
-      "Improved engagement"
+      "Cross-platform orchestration",
+      "Data pipeline automation",
+      "Legacy-to-Cloud bridging"
     ],
-    title: "Bots"
-  },
+    title: "Complex Automation",
+  }
 ] as const;
 
 const scrambleDescriptionParameters = {

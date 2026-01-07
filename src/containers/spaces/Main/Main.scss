@@ -17,17 +17,11 @@
   user-select: none;
 
   &__brand-logo {
-    @include mxs.adaptive-value($property: "height", $from: 40, $to: 20);
     @include mxs.adaptive-value($property: "width", $from: 160, $to: 140);
 
     position: relative;
     object-fit: cover;
     object-position: center;
-
-    svg {
-      width: 100%;
-      height: 100%;
-    }
   }
 
   &__decorative-animate-lines-wrapper {
@@ -40,25 +34,48 @@
     z-index: -10;
   }
 
-  &__title {
-    @include mxs.adaptive-value($property: "font-size", $from: 110, $to: 24);
+  &__text {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    span {
+      color: vars.$accent-color;
+    }
+  }
+
+  &__text-title {
+    @include mxs.adaptive-value($property: "font-size", $from: 95, $to: 24);
 
     color: vars.$secondary-color;
-    line-height: 110%;
+    line-height: 140%;
     text-align: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  &__text-lead {
+    @include mxs.adaptive-value($property: "font-size", $from: 22, $to: 14);
+    @include mxs.adaptive-value($property: "margin-left", $from: 110, $to: 10);
+    @include mxs.adaptive-value($property: "margin-right", $from: 110, $to: 10);
+
+    color: rgba($color: vars.$secondary-color, $alpha: 65%);
+    line-height: 140%;
+    text-align: center;
+    overflow: hidden;
   }
 
   &__show-all {
     position: relative;
     z-index: 10;
     display: flex;
-    gap: 8px;
     align-items: center;
     justify-content: center;
     color: vars.$accent-color;
     font-weight: 600;
     font-size: 16px;
     text-transform: lowercase;
+    min-height: 24px;
     cursor: pointer;
   }
 }

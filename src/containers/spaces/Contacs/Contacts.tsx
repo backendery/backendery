@@ -3,10 +3,10 @@ import './Contacts.scss';
 import { type FC, useEffect, useRef } from 'react';
 import { ReactTyped as Typed } from 'react-typed';
 
-import AnimateRadixGrid from '../../../components/AnimateRadixGrid/AnimateRadixGrid';
-import SvgIcon from '../../../components/elements/Icon';
-import { useRotator } from '../../../hooks/useRotator';
-import { randomBetween, runWithTimeout } from '../../../utils/fn';
+import AnimateRadixGrid from '~/components/AnimateRadixGrid/AnimateRadixGrid';
+import SvgIcon from '~/components/elements/Icon';
+import { useRotator } from '~/hooks/useRotator';
+import { randomBetween, runWithTimeout } from '~/utils/fn';
 
 const Contacts: FC = () => {
   /**
@@ -41,7 +41,7 @@ const Contacts: FC = () => {
         <div className="contacts__decorative-square" ref={decorativeSquareRef} />
       </div>
       <div className="contacts__email-wrapper">
-        <p className="contacts__email-description">Not everybody has an experienced backend developer... write to us</p>
+        <p className="contacts__email-description">Top-tier full-cycle engineering is rare. We make it accessible.<br/>Let’s ship.</p>
         <a className="contacts__email-address" href="mailto:hi@backendery.digital">
           hi@backendery.digital
         </a>

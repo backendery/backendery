@@ -6,8 +6,8 @@ import Marquee from 'react-fast-marquee';
 import { ReactTyped as Typed } from 'react-typed';
 import { useScramble } from 'use-scramble';
 
-import { useApp } from '../../../contexts/App';
-import { randomBetween, randomChars, runWithTimeout } from '../../../utils/fn';
+import { useApp } from '~/contexts/App';
+import { randomBetween, randomChars, runWithTimeout } from '~/utils/fn';
 
 type ICaseDetailsProps = {
   readonly content: ICasesContent;

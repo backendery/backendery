@@ -5,9 +5,8 @@ import { ReactTyped as Typed } from 'react-typed';
 import { useScramble } from 'use-scramble';
 
 import StdoutRow from '~/components/StdoutRow/StdoutRow';
-
-import { useRotator } from '../../../hooks/useRotator';
-import { randomBetween, randomChars, runWithTimeout } from '../../../utils/fn';
+import { useRotator } from '~/hooks/useRotator';
+import { randomBetween, randomChars, runWithTimeout } from '~/utils/fn';
 
 type IStepsContent = {
   description: string;
@@ -35,13 +34,13 @@ const stepsContents: IStepsContent[] = [
   },
   {
     description: `
-      We bring your vision to life with precision and innovation, building a robust backend that
-      grows with your business. Every solution is tailored for scalability, security, and
+      We bring your vision to life with precision and innovation, building a robust (back|front)end
+      that grows with your business. Every solution is tailored for scalability, security, and
       performance, ensuring that your system not only works today but evolves with future demands
     `,
     id: 2,
     theses: [
-      "Custom backend solutions",
+      "Custom solutions",
       "Scalable and secure",
       "High-performance",
       "Future-proof development"
@@ -50,15 +49,15 @@ const stepsContents: IStepsContent[] = [
   },
   {
     description: `
-      We ensure your backend performs as expected through focused testing. Our team reviews key
-      functionalities, addressing potential issues early to guarantee stability, security,
+      We ensure your (back|front)end performs as expected through focused testing. Our team reviews
+      key functionalities, addressing potential issues early to guarantee stability, security,
       and seamless integration with other systems, all while minimizing delays in the development
       process
     `,
     id: 3,
     theses: [
-      "Focused backend testing",
       "Stability assurance",
+      "Focused testing",
       "Early issue resolution",
       "Seamless integration"
     ],

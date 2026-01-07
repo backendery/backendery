@@ -1,10 +1,10 @@
 import './WeUse.scss';
 
 import { OverlayScrollbars } from 'overlayscrollbars';
-import React, { type FC, useEffect, useMemo, useRef, useState } from 'react';
+import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { ReactTyped as Typed } from 'react-typed';
 
-import { useApp } from '../../../contexts/App';
+import { useApp } from '~/contexts/App';
 
 type IWeUseContent = {
   id: number;
@@ -23,7 +23,8 @@ const weUseContents: IWeUseContent[] = [
     toolset: [
       "..",
       "Python",
-      "Rust"
+      "Rust",
+      "TypeScript += JavaScript"
     ],
     toolsetTitle: "Languages",
   },
@@ -32,13 +33,14 @@ const weUseContents: IWeUseContent[] = [
     toolset: [
       "..",
       "Asyncio && Tokio",
-      "FastAPI",
-      "Axum",
-      "SQLAlchemy && Diesel",
-      "Celery",
       "Pydantic",
-      "SerDe",
-      "... and much more",
+      "SQLAlchemy && Diesel",
+      "FastAPI && Axum",
+      "Apollo GraphQL",
+      "React.js || Next.js",
+      "Zustand",
+      "TailwindCSS && Shadcn UI",
+      "... and much, much more",
     ],
     toolsetTitle: "Frameworks && Libs",
   },
@@ -46,12 +48,11 @@ const weUseContents: IWeUseContent[] = [
     id: 3,
     toolset: [
       "..",
-      "PostgreSQL",
-      "Gel (aka EdgeDB)",
+      "PostgreSQL && Gel (aka EdgeDB)",
       "MongoDB",
       "Redis",
+      "Pinecone || Milvus",
       "Elasticsearch",
-      "FirebaseRDB",
       "InfluxDB"
     ],
     toolsetTitle: "Databases",
@@ -60,41 +61,45 @@ const weUseContents: IWeUseContent[] = [
     id: 4,
     toolset: [
       "..",
-      "Kafka",
-      "RabbitMQ",
-      "Redis Pub/Sub"
+      "OpenAI && Anthropic",
+      "Google Gemini",
+      "Llama && Stable Diffusion",
+      "RAG Pipelines",
+      "LangChain && LangGraph",
     ],
-    toolsetTitle: "Message Queues",
+    toolsetTitle: "AI & Neural Networks",
   },
   {
     id: 5,
     toolset: [
       "..",
-      "PyTest",
-      "Unittest",
-      "Rust Test Module"
+      "RabbitMQ && Kafka",
+      "n8n",
+      "Airflow || Camunda",
+      "Redis Pub/Sub"
     ],
-    toolsetTitle: "Testing",
+    toolsetTitle: "Automation && Pipelines",
   },
   {
     id: 6,
     toolset: [
       "..",
       "Docker",
-      "Docker Compose",
-      "Kubernetes"
+      "Kubernetes",
+      "Sentry && Grafana",
+      "Prometheus"
     ],
-    toolsetTitle: "Containerization",
+    toolsetTitle: "Infra && DevOps",
   },
   {
     id: 7,
     toolset: [
       "..",
-      "Sentry",
-      "Grafana",
-      "Prometheus"
+      "PyTest && Jest",
+      "CI/CD (GitHub Actions)",
+      "Playwright && K6"
     ],
-    toolsetTitle: "Monitoring",
+    toolsetTitle: "QA & Reliability",
   },
 ] as const;
 
