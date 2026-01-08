@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en">
   <head>
     <base href="/">
-    <title>Backendery – Backend, Frontend, AI Agents & Automation | Backendery</title>
+    <title>Backendery – High-Performance Web, AI Agents & Automation</title>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -14,13 +14,13 @@
     <meta name="google" content="notranslate">
     <meta name="robots" content="index,follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta property="og:title" content="Backendery – Backend, Frontend, AI Agents & Automation | Backendery" />
-    <meta property="og:description" content="We build robust server architectures and stunning web interfaces. Expert engineering in Python, Rust, React.js, Next.js, AI integration, and process automation." />
+    <meta property="og:title" content="Backendery – High-Performance Web, AI Agents & Automation" />
+    <meta property="og:description" content="We build robust distributed systems and reactive web interfaces. Expert engineering in Python & Rust, React.js & Next.js ecosystems, AI integration, and complex automation." />
     <meta property="og:locale" content="en">
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://backendery.digital/" />
     <meta property="og:image" content="https://backendery.digital/assets/images/og-image.png" />
-    <meta property="og:image:alt" content="Backendery Digital Studio: Backend, Frontend, and AI integration." />
+    <meta property="og:image:alt" content="Backendery – High-Performance Web, AI Agents & Automation." />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -46,42 +46,43 @@
         "@graph": [
           {
             "@type": "Organization",
-            "contactPoint": [
-              {
-                "@type": "ContactPoint",
-                "contactType": "Sales",
-                "email": "hi@backendery.digital"
-              }
-            ],
+            "@id": "https://backendery.digital/#organization",
+            "name": "Backendery",
+            "url": "https://backendery.digital/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://backendery.digital/assets/images/logo.png",
+              "caption": "Backendery Digital Studio"
+            },
             "image": {
               "@id": "https://backendery.digital/#logo"
             },
-            "logo": {
-              "@id": "https://backendery.digital/#logo",
-              "@type": "ImageObject",
-              "caption": "Backendery",
-              "contentUrl": "https://backendery.digital/assets/images/logo.png",
-              "inLanguage": "en-US",
-              "url": "https://backendery.digital/"
-            },
-            "name": "Backendery",
-            "description": "Backendery is a software development studio. We're specializing in high-performance backend (Python/Rust), modern frontend development (React.js/Next.js), AI solutions, and process automation.",
             "sameAs": [
               "https://github.com/backendery/"
             ],
-            "url": "https://backendery.digital/"
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "Sales & Support",
+                "email": "hi@backendery.digital",
+                "areaServed": "World",
+                "availableLanguage": ["English", "Russian", "Ukrainian"]
+              }
+            ],
+            "description": "Backendery is a digital engineering studio. We specialize in high-performance backends (Python/Rust), reactive web interfaces (React.js/Next.js), AI agents, and complex process automation.",
+            "areaServed": "World"
           },
           {
-            "@id": "https://backendery.digital/#website",
             "@type": "WebSite",
-            "alternateName": "Backendery Digital Studio",
-            "description": "Expert software engineering: Backend, Frontend, AI Agents, and Automation.",
-            "inLanguage": "en-US",
+            "@id": "https://backendery.digital/#website",
+            "url": "https://backendery.digital/",
             "name": "Backendery",
+            "alternateName": "Backendery Digital Studio",
+            "description": "Expert engineering: High-Performance Backend, Modern Web, AI Agents & Automation.",
             "publisher": {
               "@id": "https://backendery.digital/#organization"
             },
-            "url": "https://backendery.digital/"
+            "inLanguage": "en-US"
           }
         ]
       }
