@@ -1,5 +1,17 @@
 # Version history
 
+## 0.4.0 (08-01-2026)
+
+### Features
+- add the `gsap` library
+- add a photo animation algorithm `noise`
+
+### Refactor
+- rewrite the code and content for the `team`
+
+### Chores
+- improve formatting
+
 ## 0.3.6 (18-12-2025)
 
 ### Refactor
