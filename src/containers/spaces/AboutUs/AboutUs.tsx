@@ -1,41 +1,40 @@
 import './AboutUs.scss';
 
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import React, { useEffect, useRef, useState } from 'react';
 import { ReactTyped as Typed } from 'react-typed';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import { useRotator } from '~/hooks/useRotator';
 import { randomBetween, runWithTimeout } from '~/utils/fn';
 
-// We're extracting the data to make it easier to map
-const members = [
+const teamMembers = [
   {
-    imgBase: '/assets/images/cto',
     name: 'Iaroslav',
     position: 'CTO &\nSoftware Engineering',
+    imgBase: '/assets/images/cto.avif',
   },
   {
-    imgBase: '/assets/images/cbo',
     name: 'Maxym',
     position: 'CBO &\nBusiness • Partners',
+    imgBase: '/assets/images/cbo.avif',
   },
   {
-    imgBase: '/assets/images/cdo',
     name: 'Oleh',
     position: 'CDO &\nProduct Design • UX',
+    imgBase: '/assets/images/cdo.avif',
   },
 ];
 
 const AboutUs: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageReferences = useRef<Array<HTMLImageElement | null>>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Refs for SVG filter animation
-  const displacementMapRef = useRef<SVGFEDisplacementMapElement>(null);
-  const turbulenceRef = useRef<SVGFETurbulenceElement>(null);
+  const displacementMapRef = useRef<SVGFEDisplacementMapElement | null>(null);
+  const turbulenceRef = useRef<SVGFETurbulenceElement | null>(null);
+  const imageNodeRef = useRef<SVGImageElement | null>(null);
 
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentImageSrc, setCurrentImageSrc] = useState(teamMembers[0].imgBase);
 
   const lowerSquareTimeoutRef = useRef<null | number>(null);
   const upperSquareTimeoutRef = useRef<null | number>(null);
@@ -44,98 +43,64 @@ const AboutUs: React.FC = () => {
     angle: 90,
     direction: 'right',
     duration: 200,
-    onAnimationEnd: () => {
-      runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay, randomBetween(3_500, 7_000));
-    },
+    onAnimationEnd: () => runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay, randomBetween(3_500, 7_000)),
   });
 
   const { ref: upperSquareRef, replay: upperSquareReplay } = useRotator({
     angle: 180,
     direction: 'left',
     duration: 400,
-    onAnimationEnd: () => {
-      runWithTimeout(upperSquareTimeoutRef, upperSquareReplay, randomBetween(2_200, 5_800));
-    },
+    onAnimationEnd: () => runWithTimeout(upperSquareTimeoutRef, upperSquareReplay, randomBetween(2_200, 5_800)),
   });
 
   useEffect(() => {
     runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay);
     runWithTimeout(upperSquareTimeoutRef, upperSquareReplay);
     return () => {
-      if (lowerSquareTimeoutRef.current) { clearTimeout(lowerSquareTimeoutRef.current); }
-      if (upperSquareTimeoutRef.current) { clearTimeout(upperSquareTimeoutRef.current); }
+      if (lowerSquareTimeoutRef.current) clearTimeout(lowerSquareTimeoutRef.current);
+      if (upperSquareTimeoutRef.current) clearTimeout(upperSquareTimeoutRef.current);
     };
   }, []);
 
-  const { contextSafe } = useGSAP(
-    () => {
-      // Initial state: show only the first slide
-      gsap.set(imageReferences.current, { opacity: 0, zIndex: 1 });
-      gsap.set(imageReferences.current[0], { opacity: 1, zIndex: 2 });
-    },
-    { scope: containerRef },
-  );
+  const { contextSafe } = useGSAP({ scope: containerRef });
 
   const goToNextSlide = contextSafe(() => {
-    const nextIndex = (activeSlideIndex + 1) % members.length;
-    const currentImg = imageReferences.current[activeSlideIndex];
-    const nextImg = imageReferences.current[nextIndex];
+    const nextIndex = (activeIndex + 1) % teamMembers.length;
+    const nextImgSrc = teamMembers[nextIndex].imgBase;
 
-    if (!currentImg || !nextImg || !displacementMapRef.current || !turbulenceRef.current) { return; }
+    if (!displacementMapRef.current || !turbulenceRef.current || !imageNodeRef.current) return;
 
-    const tl = gsap.timeline({
-      onStart: () => {
-        // Change the text state at the beginning of the animation (or in the middle, to taste)
-        setActiveSlideIndex(nextIndex);
-      },
-    });
+    const tl = gsap.timeline();
 
-    // 1. "Charge" the noise
-    // A random seed makes the noise slightly different each time
+    // 1. Change seed for noise uniqueness
     tl.set(turbulenceRef.current, { attr: { seed: randomBetween(1, 100) } });
 
-    // 2. Transition animation
+    // 2. Distortion Animation (Input)
     tl.to(displacementMapRef.current, {
-      attr: { scale: 50 }, // Сила искажения
-      duration: 0.2,
+      attr: { scale: 150 },
+      duration: 0.25,
       ease: 'power2.in',
+      onComplete: () => {
+        // 3. At the peak of distortion, change the image and text
+        setActiveIndex(nextIndex);
+        setCurrentImageSrc(nextImgSrc);
+      },
     })
-      .add(() => {
-        // Change images at peak distortion
-        gsap.set(currentImg, { opacity: 0, zIndex: 1 });
-        gsap.set(nextImg, { opacity: 1, zIndex: 2 });
-      })
+      // 4. Distortion Animation (Exit)
       .to(displacementMapRef.current, {
-        attr: { scale: 0 }, // Remove distortion
-        duration: 0.5,
+        attr: { scale: 0 },
+        duration: 0.4,
         ease: 'power2.out',
       });
   });
 
-  // Autoplay
   useEffect(() => {
-    const timer = setInterval(goToNextSlide, 4_200); // 4_200 delay + transition time approx
+    const timer = setInterval(goToNextSlide, 4_500);
     return () => clearInterval(timer);
-  }, [activeSlideIndex, goToNextSlide]);
+  }, [goToNextSlide, activeIndex]);
 
   return (
     <div className="about-us" ref={containerRef}>
-      {/* SVG Filter Definition (Hidden) */}
-      <svg style={{ display: 'none' }}>
-        <defs>
-          <filter id="noise-transition-filter">
-            <feTurbulence baseFrequency="0.35" numOctaves="5" ref={turbulenceRef} result="noise" type="fractalNoise" />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              ref={displacementMapRef}
-              scale="0"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
-        </defs>
-      </svg>
       <h2 className="about-us__title">
         <Typed cursorChar="_" showCursor startWhenVisible strings={['About Us']} typeSpeed={50} />
       </h2>
@@ -162,31 +127,57 @@ const AboutUs: React.FC = () => {
           <div className="about-us__decorative-square" ref={upperSquareRef} />
         </div>
         <div className="about-us__team-mbr">
-          <p className="about-us__team-mbr-name">{members[activeSlideIndex].name}</p>
+          <p className="about-us__team-mbr-name">{teamMembers[activeIndex].name}</p>
           <p className="about-us__team-mbr-position">
-            {members[activeSlideIndex].position.split('\n').map((line, index, array) => (
-              <React.Fragment key={index}>
+            {teamMembers[activeIndex].position.split('\n').map((line, x) => (
+              <React.Fragment key={x}>
                 {line}
-                {index < array.length - 1 && <br />}
+                {x < 1 && <br />}
               </React.Fragment>
             ))}
           </p>
         </div>
         <div className="about-us__team-image-wrapper">
-          {members.map((mbr, index) => (
-            <picture className="about-us__team-image-slide" key={mbr.name}>
-              <source srcSet={`${mbr.imgBase}.avif`} type="image/avif" />
-              <source srcSet={`${mbr.imgBase}.webp`} type="image/webp" />
-              <img
-                alt={mbr.name}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                ref={(elt) => {
-                  imageReferences.current[index] = elt;
-                }}
-                src={`${mbr.imgBase}.jpg`}
-              />
-            </picture>
-          ))}
+          <svg className="about-us__team-image-viewer" width="100%" height="100%">
+            <defs>
+              <filter
+                id="noise-filter"
+                x="-20%"
+                y="-20%"
+                width="140%"
+                height="140%"
+                filterUnits="objectBoundingBox"
+                primitiveUnits="userSpaceOnUse"
+                colorInterpolationFilters="sRGB"
+              >
+                <feTurbulence
+                  ref={turbulenceRef}
+                  type="fractalNoise"
+                  baseFrequency="0.5"
+                  numOctaves="1"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  ref={displacementMapRef}
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="0"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                />
+              </filter>
+            </defs>
+            <image
+              ref={imageNodeRef}
+              href={currentImageSrc}
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid slice"
+              filter="url(#noise-filter)"
+            />
+          </svg>
         </div>
       </div>
       <p className="about-us__decorative-text--static">[../]</p>
