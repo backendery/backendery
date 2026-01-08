@@ -41,7 +41,11 @@ const Contacts: FC = () => {
         <div className="contacts__decorative-square" ref={decorativeSquareRef} />
       </div>
       <div className="contacts__email-wrapper">
-        <p className="contacts__email-description">Top-tier full-cycle engineering is rare. We make it accessible.<br/>Let’s ship.</p>
+        <p className="contacts__email-description">
+          Top-tier full-cycle engineering is rare. We make it accessible.
+          <br />
+          Let’s ship.
+        </p>
         <a className="contacts__email-address" href="mailto:hi@backendery.digital">
           hi@backendery.digital
         </a>

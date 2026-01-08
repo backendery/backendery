@@ -107,7 +107,7 @@ const Main: React.FC<MainProps> = ({ zoomOut }) => {
         </div>
       </div>
       <div className="main__show-all" onClick={zoomOut}>
-        <span>{"~/site/"}</span>
+        <span>{'~/site/'}</span>
         {startTyped && <TypedWrapper onComplete={() => {}} strings={strings} />}
       </div>
     </div>
