@@ -2,6 +2,8 @@ import './AskAI.scss';
 
 import { type FC, useEffect, useRef, useState } from 'react';
 
+const MAX_USER_PROMPT_LENGTH = 96;
+
 type Message = {
   id: string;
   role: 'assistant' | 'user';
@@ -47,22 +49,19 @@ const AskAI: FC = () => {
       const aiMessage: Message = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: answer || 'No answer.',
+        content: answer || 'No answer :/',
       };
 
       setMessages((msg) => [...msg, aiMessage]);
-
-      console.log(aiMessage)
     } catch (err) {
       setMessages((msg) => [
         ...msg,
         {
           id: crypto.randomUUID(),
           role: 'assistant',
-          content: 'Error. Please try again later.',
+          content: 'Error :/\nPlease try again later',
         },
       ]);
-      console.log(err)
     } finally {
       setLoading(false);
     }
@@ -99,19 +98,22 @@ const AskAI: FC = () => {
         <input
           className="ask-ai__input"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value.slice(0, MAX_USER_PROMPT_LENGTH))}
           placeholder="Ask a question…"
           disabled={loading}
+          maxLength={MAX_USER_PROMPT_LENGTH}
         />
         <button
           className="ask-ai__button"
           type="submit"
-          // disabled={loading || !input.trim()}
+          disabled={loading || !input.trim() || input.length > MAX_USER_PROMPT_LENGTH}
         >
           Send
         </button>
-      </form> 
-
+      </form>
+      <div className="ask-ai__counter">
+        {input.length}/{MAX_USER_PROMPT_LENGTH}
+      </div>
 
     </div>
   );

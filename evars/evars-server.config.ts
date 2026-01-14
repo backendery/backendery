@@ -11,6 +11,7 @@ const evarsSchema = z.object({
   OPENAI_API_KEY: z.string(),
   OPENAI_MODEL: z.string(),
   OPENAI_VECTOR_STORE_ID: z.string(),
+  // Vercel
   VERCEL_ENV: z.enum(AppMode).optional(),
 });
 

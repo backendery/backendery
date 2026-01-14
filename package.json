@@ -70,6 +70,7 @@
     "react-router-dom": "~7.10.1",
     "react-typed": "~2.0.12",
     "react-use": "~17.6.0",
+    "@upstash/redis": "~1.36.1",
     "sanitize.css": "~13.0.0",
     "use-scramble": "~2.2.15",
     "yup": "~1.7.1",
