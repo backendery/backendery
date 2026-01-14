@@ -52,8 +52,7 @@ export default async function handler(rq: Request) {
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: userPrompt },
     ],
-    reasoning: { effort: "minimal" },
-    prompt_cache_key: "backendery-ask-ai",
+    prompt_cache_key: "backendery-ask-ai-v1",
     tools: [
       {
         type: 'file_search',
