@@ -53,13 +53,15 @@ export default async function handler(rq: Request) {
       { role: 'user', content: userPrompt },
     ],
     prompt_cache_key: "backendery-ask-ai-v1",
+    reasoning: { effort: "none" },
     tools: [
       {
         type: 'file_search',
+
         vector_store_ids: [evars.OPENAI_VECTOR_STORE_ID],
       },
     ],
-    text: { verbosity: "medium" }
+    text: { verbosity: "low" }
   });
 
   return Response.json({
