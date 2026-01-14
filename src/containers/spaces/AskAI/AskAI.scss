@@ -1,7 +1,7 @@
 @use "~/styles/variables" as vars;
 @use "~/styles/mixins" as mxs;
 
-.coming-soon {
+.ask-ai {
   @include mxs.adaptive-value($property: "padding", $from: 130, $to: 50);
 
   display: flex;

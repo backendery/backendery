@@ -6,7 +6,7 @@ import { addClass, removeClass } from '~/utils/fn';
 
 import AboutUs from '../spaces/AboutUs/AboutUs';
 import Cases from '../spaces/Cases/Cases';
-import ComingSoon from '../spaces/ComingSoon/ComingSoon';
+import AskAI from '../spaces/AskAI/AskAI';
 import Contacts from '../spaces/Contacs/Contacts';
 import LetsStart from '../spaces/LetsStart/LetsStart';
 import Main from '../spaces/Main/Main';
@@ -254,7 +254,7 @@ const VirtualScene: React.FC = () => {
         <div className="virtual-space" data-x-position="0" data-y-position="0">
           <div className="virtual-space__caption">Main</div>
           <span className="virtual-space__navigate virtual-space__navigate--up js-up">We Do</span>
-          <span className="virtual-space__navigate virtual-space__navigate--right-top js-up js-right">Coming Soon</span>
+          <span className="virtual-space__navigate virtual-space__navigate--right-top js-up js-right">Ask AI</span>
           <span className="virtual-space__navigate virtual-space__navigate--left-top js-up js-left">About Us</span>
           <span className="virtual-space__navigate virtual-space__navigate--left js-left">Cases</span>
           <span className="virtual-space__navigate virtual-space__navigate--right js-right">Steps</span>
@@ -268,7 +268,7 @@ const VirtualScene: React.FC = () => {
         <div className="virtual-space" data-x-position="0" data-y-position="1">
           <div className="virtual-space__caption">We Do</div>
           <span className="virtual-space__navigate virtual-space__navigate--left js-left">About Us</span>
-          <span className="virtual-space__navigate virtual-space__navigate--right js-right">Coming Soon</span>
+          <span className="virtual-space__navigate virtual-space__navigate--right js-right">Ask AI</span>
           <span className="virtual-space__navigate virtual-space__navigate--right-down js-down js-right">Steps</span>
           <span className="virtual-space__navigate virtual-space__navigate--left-down js-down js-left">Cases</span>
           <span className="virtual-space__navigate virtual-space__navigate--down js-down">Main</span>
@@ -277,17 +277,17 @@ const VirtualScene: React.FC = () => {
         {/* Up/Right */}
         {/* prettier-ignore */}
         <div className="virtual-space" data-x-position="1" data-y-position="1">
-          <div className="virtual-space__caption">Coming Soon</div>
+          <div className="virtual-space__caption">Ask AI</div>
           <span className="virtual-space__navigate virtual-space__navigate--left-down js-down js-left">Main</span>
           <span className="virtual-space__navigate virtual-space__navigate--left js-left">We Do</span>
           <span className="virtual-space__navigate virtual-space__navigate--down js-down">Steps</span>
-          <ComingSoon />
+          <AskAI />
         </div>
         {/* Right */}
         {/* prettier-ignore */}
         <div className="virtual-space" data-x-position="1" data-y-position="0">
           <div className="virtual-space__caption">Steps</div>
-          <span className="virtual-space__navigate virtual-space__navigate--up js-up">Coming Soon</span>
+          <span className="virtual-space__navigate virtual-space__navigate--up js-up">Ask AI</span>
           <span className="virtual-space__navigate virtual-space__navigate--left-top js-up js-left">We Do</span>
           <span className="virtual-space__navigate virtual-space__navigate--left js-left">Main</span>
           <span className="virtual-space__navigate virtual-space__navigate--left-down js-down js-left">We Use</span>

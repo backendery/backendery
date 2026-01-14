@@ -25,7 +25,7 @@
     "lint-prettier:fix": "cross-env NODE_OPTIONS=--no-deprecation prettier \"**/*.{js,jsx,ts,tsx}\" --config=./prettier.config.mjs --write --cache",
     "lint-style": "cross-env NODE_OPTIONS=--no-deprecation stylelint \"**/*.{css,scss}\" --config=./stylelint.config.mjs --cache --max-warnings=0",
     "lint-style:fix": "cross-env NODE_OPTIONS=--no-deprecation stylelint \"**/*.{css,scss}\" --config=./stylelint.config.mjs --fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "preview": "cross-env NODE_OPTIONS=--no-deprecation vite preview --config=./vite.config.ts",
     "types": "cross-env NODE_OPTIONS=--no-deprecation tsc --noEmit --pretty"
   },
@@ -59,6 +59,7 @@
     "axios-retry": "~4.5.0",
     "formik": "~2.4.9",
     "gsap": "~3.14.2",
+    "openai": "~6.16.0",
     "overlayscrollbars": "~2.10.1",
     "react": "~19.2.3",
     "react-dom": "~19.2.3",
