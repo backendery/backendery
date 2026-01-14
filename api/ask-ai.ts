@@ -12,9 +12,9 @@ const evars = loadValidatedEnv()
 const LIGHTWEIGHT_CONTEXT_EXPANDER = `
 1. **Core:** We are Backendery — a digital engineering studio. Custom high-performance software engineering for startups & product teams. Avg team exp: 10+ years  
 2. **Services:**  
-  - High-Perf Backend: Python/Rust, low-latency APIs, distributed systems, memory safety  
+  - High-Perf Backend: Python/Rust, low-latency APIs, distributed systems, memory safety, fault tolerance and high vailability solutions  
   - AI & LLMOps: Autonomous agents, RAG, vector search, multi-agent orchestration  
-  - Intelligent UI: React.js/Next.js, reactive interfaces with AI core features  
+  - Intelligent UI: React.js/Next.js, modern libraries for styling and state-management  
   - Automation: Complex workflow orchestration, legacy-to-cloud integration  
 3. **Tech Stack:** Python, Rust, TypeScript, JavaScript; FastAPI, Axum, React.js, Next.js; PostgreSQL, Redis, Vector DBs (Pinecone or Milvus), OpenAI, LLMs; Docker, K6  
 4. **Team:** Iaroslav (CTO), Maxym (CBO), Oleh (CDO)  
@@ -64,11 +64,11 @@ ${LIGHTWEIGHT_CONTEXT_EXPANDER}
 const MAX_USER_PROMPT_LENGTH = 96;
 const MAX_NUM_SEARCH_RESULTS =  2;
 const RATE_LIMIT = {
-  light: { window: 150, max: 10 }, // requests per window per IP in seconds (- RAG)
-  rag:   { window: 300, max:  5 }, // requests per window per IP in seconds (+ RAG)
+  simple: { window: 900, max: 10 }, // requests per window per IP in seconds (- RAG)
+  rag: { window: 1800, max: 5 }, // requests per window per IP in seconds (+ RAG)
 } as const;
 
-const RateLimit = { Light: 'light', Rag: 'rag'} as const;
+const RateLimit = { Simple: 'simple', Rag: 'rag'} as const;
 // annotation
 type RateLimit = (typeof RateLimit)[keyof typeof RateLimit];
 
@@ -93,7 +93,7 @@ const AnswerSchema = z.object({
 const openai = new OpenAI({ apiKey: evars.OPENAI_API_KEY });
 const redis = Redis.fromEnv();
 
-async function hashUserAgent(userAgent) {
+async function hashUserAgent(userAgent: string) {
   if (!userAgent) return '';
 
   const encoder = new TextEncoder();
@@ -111,10 +111,9 @@ async function getFingerprint(rq: Request) {
   const ip = rq.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const ua = rq.headers.get('user-agent') ?? 'unknown';
 
-  const ipFold = ip.replace('.', '')
   const uaHash = await hashUserAgent(ua)
 
-  return `${ipFold}:${uaHash}`;
+  return `${ip}:${uaHash}`;
 }
 
 async function rateLimit(fingerprint: string, rateLimitMode: RateLimit) {
@@ -176,8 +175,8 @@ export default async function handler(rq: Request) {
    * We save the call to the second model.
    */
   if (fastAnswer && (intent === Intent.Greeting || intent === Intent.OutOfScope)) {
-    // Checking the limit for light requests
-    if (!await rateLimit(fingerprint, RateLimit.Light)) {
+    // Checking the limit for simple requests
+    if (!await rateLimit(fingerprint, RateLimit.Simple)) {
       return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
     }
 
@@ -190,7 +189,7 @@ export default async function handler(rq: Request) {
   /**
    * DEEP PATH (General Inquiry / Case Studies)
    */
-  if (!await rateLimit(fingerprint, isUseRAG ? RateLimit.Rag : RateLimit.Light)) {
+  if (!await rateLimit(fingerprint, isUseRAG ? RateLimit.Rag : RateLimit.Simple)) {
     return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
   }
 
@@ -200,7 +199,7 @@ export default async function handler(rq: Request) {
       { role: 'system', content: ANSWER_PROMPT },
       { role: 'user', content: userPrompt },
     ],
-    prompt_cache_key: "backendery-ask-ai-v3",
+    prompt_cache_key: "backendery-ask-ai-v4",
     reasoning: { effort: "low" },
     store: true,
     tools: isUseRAG
