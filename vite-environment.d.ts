@@ -1,7 +1,7 @@
 /* eslint-disable canonical/filename-match-regex */
 import { type SVGProps } from 'react';
 
-import { type EvarsSchema } from './evars-schema.config';
+import { type EvarsSchema } from './evars/evars-client.config';
 
 declare global {
   interface Window {

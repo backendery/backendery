@@ -7,7 +7,7 @@ import { defineConfig, normalizePath } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-import { loadValidatedEnv } from './evars-schema.config';
+import { loadValidatedEnv } from './evars/evars-client.config';
 
 export default defineConfig(({ mode }: { mode: string }) => {
   // Load environment variables based on the current mode (e.g., 'development', 'production')

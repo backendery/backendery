@@ -26,5 +26,5 @@
     "types": ["node"],
     "verbatimModuleSyntax": true
   },
-  "include": ["vite*.config.ts", "evars-schema.config.ts"]
+  "include": ["vite*.config.ts", "evars/evars-client.config.ts"]
 }
