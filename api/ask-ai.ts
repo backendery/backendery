@@ -48,10 +48,10 @@ You are an AI assistant for a **Software Development** studio website
 `;
 
 const MAX_USER_PROMPT_LENGTH = 96;
-const MAX_NUM_SEARCH_RESULTS =  2;
+const MAX_NUM_SEARCH_RESULTS =  3;
 const RATE_LIMIT = {
-  simple: { window: 900, max: 10 }, // requests per window per IP in seconds (- RAG)
-  rag: { window: 1800, max: 5 }, // requests per window per IP in seconds (+ RAG)
+  simple: { window: 900, max: 8 }, // requests per window per IP in seconds (- RAG)
+  rag: { window: 1800, max: 3 }, // requests per window per IP in seconds (+ RAG)
 } as const;
 
 const RateLimit = { Simple: 'simple', Rag: 'rag'} as const;

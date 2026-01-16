@@ -332,11 +332,14 @@ const AskAI: FC = () => {
                       }}
                     />
                     <label className={`ask-ai-input__label ${values.message && 'label-top'}`} htmlFor="message">
-                      How can I help you?
+                      Ask anything
                     </label>
                     {submitCount > 0 && errors.message && touched.message && (
                       <div className="ask-ai-input__error">{errors.message}</div>
                     )}
+                  </div>
+                  <div className="ask-ai__counter">
+                    {`${String(values.message.length).padStart(3, '0')}/096`}
                   </div>
                 </div>
                 <button
@@ -348,9 +351,6 @@ const AskAI: FC = () => {
                 </button>
               </div>
             </Form>
-            {/* <div className="ask-ai__counter">
-              {values.message.length}/{MAX_USER_PROMPT_LENGTH}
-            </div> */}
           </div>
         )}
       </Formik>
