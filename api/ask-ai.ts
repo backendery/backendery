@@ -1,13 +1,13 @@
 import { Redis } from '@upstash/redis';
 import OpenAI from 'openai';
-import { zodTextFormat } from 'openai/helpers/zod'
-import { z } from "zod";
+import { zodTextFormat } from 'openai/helpers/zod';
+import { z } from 'zod';
 
-import { loadValidatedEnv } from '../evars/evars-server.config'
+import { loadValidatedEnv } from '../evars/evars-server.config';
 
 export const config = { runtime: 'edge' };
 
-const evars = loadValidatedEnv()
+const evars = loadValidatedEnv();
 
 const INTENT_PROMPT = `
 # Backendery AI Assistant  
@@ -48,13 +48,13 @@ You are an AI assistant for a **Software Development** studio website
 `;
 
 const MAX_USER_PROMPT_LENGTH = 96;
-const MAX_NUM_SEARCH_RESULTS =  3;
+const MAX_NUM_SEARCH_RESULTS = 3;
 const RATE_LIMIT = {
   simple: { window: 900, max: 8 }, // requests per window per IP in seconds (- RAG)
   rag: { window: 1800, max: 3 }, // requests per window per IP in seconds (+ RAG)
 } as const;
 
-const RateLimit = { Simple: 'simple', Rag: 'rag'} as const;
+const RateLimit = { Simple: 'simple', Rag: 'rag' } as const;
 // annotation
 type RateLimit = (typeof RateLimit)[keyof typeof RateLimit];
 
@@ -62,13 +62,13 @@ const Intent = {
   Greeting: 'greeting',
   GeneralInquiry: 'general_inquiry',
   CaseStudySearch: 'case_study_search',
-  OutOfScope: 'out_of_scope'
+  OutOfScope: 'out_of_scope',
 } as const;
 // annotation
 type Intent = (typeof Intent)[keyof typeof Intent];
 
 const IntentSchema = z.object({
-  answer: z.string().default("").describe("Populated ONLY for greeting or out_of_scope. Empty string otherwise."),
+  answer: z.string().default('').describe('Populated ONLY for greeting or out_of_scope. Empty string otherwise.'),
   intent: z.enum(Intent),
 });
 
@@ -97,7 +97,7 @@ async function getFingerprint(rq: Request) {
   const ip = rq.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const ua = rq.headers.get('user-agent') ?? 'unknown';
 
-  const uaHash = await hashUserAgent(ua)
+  const uaHash = await hashUserAgent(ua);
 
   return `${ip}:${uaHash}`;
 }
@@ -106,14 +106,14 @@ async function rateLimit(fingerprint: string, rateLimitMode: RateLimit) {
   const { window, max } = RATE_LIMIT[rateLimitMode];
   const key = `ratelimit:${rateLimitMode}:${fingerprint}`;
 
-  const current = Number(await redis.get(key) ?? 0);
+  const current = Number((await redis.get(key)) ?? 0);
 
   if (current >= max) {
     return false;
   }
 
   if (current === 0) {
-    await redis.setex(key, window, "1");
+    await redis.setex(key, window, '1');
   } else {
     await redis.incr(key);
   }
@@ -123,19 +123,13 @@ async function rateLimit(fingerprint: string, rateLimitMode: RateLimit) {
 
 export default async function handler(rq: Request) {
   if (rq.method !== 'POST') {
-    return new Response(
-      JSON.stringify({ error: 'Method Not Allowed' }),
-      { status: 405 }
-    );
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
   }
 
   const { userPrompt } = await rq.json();
 
   if (typeof userPrompt !== 'string' || userPrompt.length > MAX_USER_PROMPT_LENGTH) {
-    return new Response(
-      JSON.stringify({ error: 'Invalid prompt' }),
-      { status: 400 }
-    );
+    return new Response(JSON.stringify({ error: 'Invalid prompt' }), { status: 400 });
   }
 
   const fingerprint = await getFingerprint(rq);
@@ -161,7 +155,7 @@ export default async function handler(rq: Request) {
    */
   if (fastAnswer && fastAnswer.trim().length > 0) {
     // Checking the limit for simple requests
-    if (!await rateLimit(fingerprint, RateLimit.Simple)) {
+    if (!(await rateLimit(fingerprint, RateLimit.Simple))) {
       return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
     }
 
@@ -174,7 +168,7 @@ export default async function handler(rq: Request) {
    * In both cases, we enable RAG.
    * We use the Rag limit (since we are calling vector search)
    */
-  if (!await rateLimit(fingerprint, RateLimit.Rag)) {
+  if (!(await rateLimit(fingerprint, RateLimit.Rag))) {
     return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
   }
 
@@ -184,17 +178,17 @@ export default async function handler(rq: Request) {
       { role: 'system', content: ANSWER_PROMPT },
       { role: 'user', content: userPrompt },
     ],
-    prompt_cache_key: "backendery-ask-ai-v5",
-    reasoning: { effort: "low" },
+    prompt_cache_key: 'backendery-ask-ai-v5',
+    reasoning: { effort: 'low' },
     store: true,
     tools: [
       {
         type: 'file_search',
         vector_store_ids: [evars.OPENAI_VECTOR_STORE_ID],
         max_num_results: MAX_NUM_SEARCH_RESULTS,
-      }
+      },
     ],
-    text: { format: zodTextFormat(AnswerSchema, 'answer'), verbosity: "low" }
+    text: { format: zodTextFormat(AnswerSchema, 'answer'), verbosity: 'low' },
   });
 
   const { answer } = answerResponse.output_parsed ?? {};

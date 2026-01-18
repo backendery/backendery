@@ -1,57 +1,113 @@
-@use "~/styles/variables" as vars;
-@use "~/styles/mixins" as mxs;
+@use '~/styles/variables' as vars;
+@use '~/styles/mixins' as mxs;
 
 .ask-ai {
-  @include mxs.adaptive-value($property: "padding", $from: 130, $to: 50);
+  @include mxs.adaptive-value($property: 'padding', $from: 130, $to: 50);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   width: vars.$width-in-dvw;
   height: vars.$height-in-dvh;
-  text-align: center;
   user-select: none;
 
   &__title {
-    @include mxs.adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: vars.$lg);
+    @include mxs.adaptive-value($property: 'font-size', $from: 72, $to: 32, $trigger-at: vars.$lg);
 
-    grid-column: 1/4;
-    margin-bottom: 30px;
-    font-weight: 500;
-    line-height: 100%;
+    font-weight: 600;
+    line-height: 110%;
   }
 
-  &__form-wrapper {
-    grid-column: 1/4;
-    align-self: self-end;
+  &__chat {
+    @include mxs.adaptive-value($property: 'width', $from: 600, $to: 300);
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: absolute;
+    height: 90%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  &__form {
+  &__chat-inner {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &__start-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__start-state {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
 
-    @media screen and (width <= vars.$md) {
-      grid-template-columns: 1fr;
+    &--title {
+      @include mxs.adaptive-value($property: 'font-size', $from: 24, $to: 16);
+
+      grid-column: 1/-1;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    &--tip {
+      @include mxs.adaptive-value($property: 'padding', $from: 20, $to: 10);
+
+      text-align: center;
+      color: rgba($color: vars.$secondary-color, $alpha: 50%);
+      border: 1px solid rgba($color: vars.$secondary-color, $alpha: 10%);
     }
   }
 
-  &__inputs-wrapper {
-    @include mxs.adaptive-value($property: "gap", $from: 50, $to: 30, $trigger-at: vars.$sm);
+  &__messages {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
-    display: grid;
-    grid-template-rows: repeat(3, auto);
-    grid-template-columns: repeat(2, 1fr);
+  &__message {
+    max-width: 80%;
+    line-height: 1.5;
+    word-wrap: break-word;
 
-    @media screen and (width <= vars.$sm) {
-      grid-template-rows: auto;
-      grid-template-columns: 1fr;
+    &--assistant {
+      padding: 10px 10px 10px 0;
+      align-self: flex-start;
+      color: vars.$secondary-color;
+      margin: 10px 0;
     }
+
+    &--user {
+      align-self: flex-end;
+      padding: 10px;
+      background-color: rgba($color: vars.$secondary-color, $alpha: 0.1);
+      color: vars.$secondary-color;
+      margin: 10px 0;
+    }
+  }
+
+  &__message-content {
+    font-size: 14px;
+    white-space: pre-wrap;
+  }
+
+  &__chat-form {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    gap: 20px;
   }
 
   &__send-message-btn {
-    @include mxs.adaptive-value($property: "font-size", $from: 26, $to: 20, $trigger-at: vars.$sm);
-    @include mxs.adaptive-value($property: "height", $from: 40, $to: 32, $trigger-at: vars.$md);
-    @include mxs.adaptive-value($property: "width", $from: 40, $to: 32, $trigger-at: vars.$md);
+    @include mxs.adaptive-value($property: 'font-size', $from: 26, $to: 20, $trigger-at: vars.$sm);
+    @include mxs.adaptive-value($property: 'height', $from: 40, $to: 32, $trigger-at: vars.$md);
+    @include mxs.adaptive-value($property: 'width', $from: 40, $to: 32, $trigger-at: vars.$md);
 
     display: flex;
     gap: 12px;
@@ -68,17 +124,28 @@
       }
     }
 
-    @media screen and (width <= vars.$sm) {
+    @media screen and (width <=vars.$sm) {
       margin-top: 10px;
     }
   }
+
+  // @media screen and (width <= vars.$lg) {
+  //   grid-template-rows: auto auto 1fr;
+  //   grid-template-columns: 1fr auto;
+  //   row-gap: 30px;
+  // }
+
+  // @media screen and (width <= vars.$sm) {
+  //   grid-template-rows: auto auto auto 1fr;
+  // }
 }
 
 .ask-ai-input {
-  @include mxs.adaptive-value($property: "font-size", $from: 14, $to: 13, $trigger-at: vars.$xs);
+  @include mxs.adaptive-value($property: 'font-size', $from: 14, $to: 13, $trigger-at: vars.$xs);
 
   position: relative;
-  height: 35px;
+  width: 100%;
+  height: 40px;
 
   &__label {
     position: absolute;
@@ -146,13 +213,13 @@
     font-size: 12px;
     user-select: none;
 
-    @media screen and (width <= vars.$sm) {
+    @media screen and (width <=vars.$sm) {
       top: 38px;
       font-size: 11px;
       line-height: 120%;
     }
 
-    @media screen and (width <= vars.$xs) {
+    @media screen and (width <=vars.$xs) {
       top: 38px;
     }
   }

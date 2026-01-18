@@ -19,9 +19,9 @@ type AskAIMessage = {
   content: string;
   id: string;
   role: Role;
-}
+};
 
-const Role = { Assistant: 'assistant', User: 'user'} as const;
+const Role = { Assistant: 'assistant', User: 'user' } as const;
 // annotation
 type Role = (typeof Role)[keyof typeof Role];
 
@@ -49,16 +49,7 @@ const toggleBodyScroll = (shouldDisable: boolean) => {
  */
 const handleInputFocusEvent = (event: Event) => {
   if (event instanceof FocusEvent) {
-    switch (event.type) {
-      case 'focus':
-        toggleBodyScroll(true);
-        return;
-
-      case 'blur':
-        toggleBodyScroll(false);
-
-      default:
-    }
+    event.type === 'focus' ? toggleBodyScroll(true) : toggleBodyScroll(false);
   }
 };
 
@@ -81,7 +72,7 @@ const REQUEST_RETRIES = 3 as number;
 // Create an axios instance to set the interceptors
 const axiosInstance = axios.create({
   headers: {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
   },
   // Disable automatic redirects
@@ -144,45 +135,44 @@ const AskAI: FC = () => {
    */
   /* prettier-ignore */
   const handleSendMessage = async (
-    values: AskAIFormValues, actions: FormikHelpers<AskAIFormValues>
-  ) => {
-    if (!values.message.trim()) return;
+		values: AskAIFormValues, actions: FormikHelpers<AskAIFormValues>,
+	) => {
+		if (!values.message.trim()) return;
 
-    try {
-      const userMessage: AskAIMessage = {
-        content: values.message.trim(),
-        id: crypto.randomUUID(),
-        role: Role.User,
-      };
-      setMessages((msg) => [...msg, userMessage]);
+		try {
+			const userMessage: AskAIMessage = {
+				content: values.message.trim(),
+				id: crypto.randomUUID(),
+				role: Role.User,
+			};
+			setMessages((msg) => [...msg, userMessage]);
 
-      // Let's clean the form
-      actions.resetForm();
+			// Let's clean the form
+			actions.resetForm();
 
-      // Sending data via axios with interceptors
-      const response = await axiosInstance.post('/api/ask-ai', { userPrompt: userMessage.content });
-      // Catch the response and retrieve the data
-      const { answer } = response.data;
+			const response = await axiosInstance.post("/api/ask-ai", {
+				userPrompt: userMessage.content,
+			});
+			const { answer } = response.data;
 
-      const aiMessage: AskAIMessage = {
-        content: answer || 'No answer :/',
-        id: crypto.randomUUID(),
-        role: Role.Assistant,
-      };
-      setMessages((msg) => [...msg, aiMessage]);
-    } catch (error) {
+			const aiMessage: AskAIMessage = {
+				content: answer,
+				id: crypto.randomUUID(),
+				role: Role.Assistant,
+			};
+			setMessages((msg) => [...msg, aiMessage]);
+		} finally {
       setMessages((msg) => [
-        ...msg,
-        {
-          content: 'Error :/\nPlease try again later',
-          id: crypto.randomUUID(),
-          role: Role.Assistant,
-        },
-      ]);
-    } finally {
-      actions.setSubmitting(false);
-    }
-  };
+				...msg,
+				{
+					content: "Error :/\nPlease try again later",
+					id: crypto.randomUUID(),
+					role: Role.Assistant,
+				},
+			]);
+			actions.setSubmitting(false);
+		}
+	};
 
   /**
    * @states
@@ -209,7 +199,8 @@ const AskAI: FC = () => {
     message: Yup.string()
       .trim()
       .required('message is required')
-      .min(2, "less than 002 symbols").max(96, "more then 096 symbols"),
+      .min(2, 'less than 002 symbols')
+      .max(96, 'more then 096 symbols'),
   });
 
   /**
@@ -219,8 +210,12 @@ const AskAI: FC = () => {
   const initialFormValues: AskAIFormValues = { message: '' };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
+  }, []);
 
   useEffect(() => {
     // Find all `input` and `textarea` elements on page
@@ -245,115 +240,106 @@ const AskAI: FC = () => {
     if (chatScrollbarsRef?.current) {
       osInstance = OverlayScrollbars(chatScrollbarsRef?.current, scrollbarsOptions);
     }
-
     return () => osInstance?.destroy();
-  }, []);
+  }, [osInstance, scrollbarsOptions]);
 
   return (
     <div className="ask-ai">
       <h2 className="ask-ai__title">
-        <Typed cursorChar="_" showCursor startWhenVisible strings={["Ask AI"]} typeSpeed={50} />
+        <Typed cursorChar="_" showCursor startWhenVisible strings={['Ask AI']} typeSpeed={50} />
       </h2>
-
-      {/* <div className="ask-ai__messages">
-        {messages.length === 0 && (
-          <div className="ask-ai__message ask-ai__message--assistant">
-            Ask anything about our studio.
-          </div>
-        )}
-
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`ask-ai__message ask-ai__message--${m.role}`}
-          >
-            {m.content}
-          </div>
-        ))}
-
-        <div ref={messagesEndRef} />
-      </div> */}
-
-      <Formik
-        initialValues={initialFormValues}
-        onSubmit={(values, actions) => {
-          Schema.validate(values, { abortEarly: false })
-            .then(() => {
-              handleSendMessage(values, actions);
-            })
-            .catch((error) => {
-              const errors: { [key: string]: string } = {};
-              for (const validationError of error.inner as Yup.ValidationError[]) {
-                if (validationError.path) {
-                  errors[validationError.path] = validationError.message;
-                }
-              }
-
-              actions.setErrors(errors);
-            });
-        }}
-        validateOnBlur={false}
-        validateOnChange
-        validationSchema={Schema}
-      >
-        {(
-          /* prettier-ignore */
-          {
-            errors,
-            isSubmitting,
-            setFieldError,
-            setFieldTouched,
-            setFieldValue,
-            submitCount,
-            touched,
-            values
-          },
-        ) => (
-          <div className='ask-ai__form-wrapper'>
-            <Form onKeyDown={handleKeyDownEvent}>
-              <div className="ask-ai__form">
-                <div className="ask-ai__inputs-wrapper">
-                  <div className="ask-ai-input">
-                    <Field
-                      className="ask-ai-input__field"
-                      id="message"
-                      name="message"
-                      disabled={isSubmitting}
-                      autoComplete="off"
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        setFieldValue('message', event.target.value);
-                        setFieldTouched('message', true, false);
-                        // Validate the value based on the input
-                        Schema.validateAt('message', { message: event.target.value })
-                          .then(() => setFieldError('message', ''))
-                          .catch((error) => {
-                            setFieldError('message', error.message);
-                          });
-                      }}
-                    />
-                    <label className={`ask-ai-input__label ${values.message && 'label-top'}`} htmlFor="message">
-                      Ask anything
-                    </label>
-                    {submitCount > 0 && errors.message && touched.message && (
-                      <div className="ask-ai-input__error">{errors.message}</div>
-                    )}
-                  </div>
-                  <div className="ask-ai__counter">
-                    {`${String(values.message.length).padStart(3, '0')}/096`}
-                  </div>
-                </div>
-                <button
-                  className="ask-ai__send-message-btn"
-                  disabled={isSubmitting || !!errors.message}
-                  type="submit"
-                >
-                  <SvgIcon name="arrow-up" />
-                </button>
+      <div className="ask-ai__chat">
+        <div className="ask-ai__chat-inner" data-overlayscrollbars-initialize ref={chatScrollbarsRef}>
+          {messages.length === 0 ? (
+            <div className="ask-ai__start-wrapper">
+              <div className="ask-ai__start-state">
+                <p className="ask-ai__start-state--title">Start a conversation with AI</p>
+                <div className="ask-ai__start-state--tip">What can Backendery build for me?</div>
+                <div className="ask-ai__start-state--tip">Tell me about your AI and automation solutions</div>
+                <div className="ask-ai__start-state--tip">What technologies do you specialize in?</div>
+                <div className="ask-ai__start-state--tip">Show me your recent projects</div>
               </div>
+            </div>
+          ) : (
+            <div className="ask-ai__messages">
+              {messages.map((msg) => (
+                <div key={msg.id} className={`ask-ai__message ask-ai__message--${msg.role}`}>
+                  <div className="ask-ai__message-content">{msg.content}</div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          )}
+        </div>
+        <Formik
+          initialValues={initialFormValues}
+          onSubmit={(values, actions) => {
+            Schema.validate(values, { abortEarly: false })
+              .then(() => {
+                handleSendMessage(values, actions);
+              })
+              .catch((error) => {
+                const errors: { [key: string]: string } = {};
+                for (const validationError of error.inner as Yup.ValidationError[]) {
+                  if (validationError.path) {
+                    errors[validationError.path] = validationError.message;
+                  }
+                }
+                actions.setErrors(errors);
+              });
+          }}
+          validateOnBlur={false}
+          validateOnChange
+          validationSchema={Schema}
+        >
+          {(
+            /* prettier-ignore */
+            {
+							errors,
+							isSubmitting,
+							setFieldError,
+							setFieldTouched,
+							setFieldValue,
+							submitCount,
+							touched,
+							values,
+						},
+          ) => (
+            <Form onKeyDown={handleKeyDownEvent} className="ask-ai__chat-form">
+              <div className="ask-ai-input">
+                <Field
+                  className="ask-ai-input__field"
+                  id="message"
+                  name="message"
+                  disabled={isSubmitting}
+                  autoComplete="off"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setFieldValue('message', event.target.value);
+                    setFieldTouched('message', true, false);
+                    // Validate the value based on the input
+                    Schema.validateAt('message', {
+                      message: event.target.value,
+                    })
+                      .then(() => setFieldError('message', ''))
+                      .catch((error) => {
+                        setFieldError('message', error.message);
+                      });
+                  }}
+                />
+                <label className={`ask-ai-input__label ${values.message && 'label-top'}`} htmlFor="message">
+                  Ask anything
+                </label>
+                {submitCount > 0 && errors.message && touched.message && (
+                  <div className="ask-ai-input__error">{errors.message}</div>
+                )}
+              </div>
+              <button className="ask-ai__send-message-btn" disabled={isSubmitting || !!errors.message} type="submit">
+                <SvgIcon name="arrow-up" />
+              </button>
             </Form>
-          </div>
-        )}
-      </Formik>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
