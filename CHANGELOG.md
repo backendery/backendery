@@ -1,5 +1,14 @@
 # Version history
 
+## 0.5.0 (18-01-2026)
+
+### Features
+- replace the placeholder `Comming Soon` with `Ask AI`
+- add a edge server function for communication with `OpenAI`
+
+### Chores
+- improve codebase
+
 ## 0.4.0 (08-01-2026)
 
 ### Features
