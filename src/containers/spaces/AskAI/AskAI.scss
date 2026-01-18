@@ -72,7 +72,9 @@
   }
 
   &__message {
-    max-width: 80%;
+    @include mxs.adaptive-value($property: 'font-size', $from: 14, $to: 13);
+
+    max-width: 70%;
     word-wrap: break-word;
 
     &--assistant {
@@ -92,7 +94,24 @@
   }
 
   &__message-content {
+    @include mxs.adaptive-value($property: 'font-size', $from: 14, $to: 13);
+
     white-space: pre-wrap;
+
+    &.is-thinking {
+      background: linear-gradient(90deg, vars.$secondary-color, rgba(vars.$secondary-color, 0.1), vars.$secondary-color) -100%/ 200%;
+      /* being excessively careful with compat,
+       * though this has been supported unprefixed and
+       * in the shorthand across major browsers for a while;
+       * but it catches the latest browser versions supported
+       * on Wndows XP, 7 and 8; yeah, they exist in 2025 */
+      -webkit-background-clip: text;
+              background-clip: text;
+      /* use color, don't use -webkit-text-fill-color anymore,
+       * was meant to solve a problem we haven't had in years */
+      color: transparent;
+      animation: shimmer 2s linear infinite
+    }
   }
 
   &__chat-form {
@@ -222,3 +241,5 @@
     }
   }
 }
+
+@keyframes shimmer { to { background-position: 100% } }
