@@ -74,7 +74,7 @@
   &__message {
     @include mxs.adaptive-value($property: 'font-size', $from: 14, $to: 13);
 
-    max-width: 70%;
+    max-width: 80%;
     word-wrap: break-word;
 
     &--assistant {
