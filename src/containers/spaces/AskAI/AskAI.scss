@@ -35,14 +35,14 @@
     overflow-y: auto;
   }
 
-  &__start-wrapper {
+  &__intro-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
   }
 
-  &__start-state {
+  &__intro {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
@@ -56,16 +56,16 @@
       margin-bottom: 20px;
     }
 
-    &--tip {
+    &--hint {
       @include mxs.adaptive-value($property: 'padding', $from: 20, $to: 10);
 
       text-align: center;
       color: rgba($color: vars.$secondary-color, $alpha: 50%);
-      border: 1px solid rgba($color: vars.$secondary-color, $alpha: 10%);
+      border: 1px dashed rgba($color: vars.$secondary-color, $alpha: 10%);
     }
   }
 
-  &__messages {
+  &__conversation {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -73,7 +73,6 @@
 
   &__message {
     max-width: 80%;
-    line-height: 1.5;
     word-wrap: break-word;
 
     &--assistant {
@@ -93,7 +92,6 @@
   }
 
   &__message-content {
-    font-size: 14px;
     white-space: pre-wrap;
   }
 

@@ -62,6 +62,7 @@ const handleInputFocusEvent = (event: Event) => {
 const handleKeyDownEvent = (event: React.KeyboardEvent<HTMLFormElement>) => {
   if (event.key === 'Enter') {
     event.preventDefault(); // Prevent default form submit behavior when Enter is pressed
+    event.currentTarget.requestSubmit();
   }
 };
 
@@ -72,7 +73,7 @@ const REQUEST_RETRIES = 3 as number;
 // Create an axios instance to set the interceptors
 const axiosInstance = axios.create({
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
   // Disable automatic redirects
@@ -83,45 +84,47 @@ const axiosInstance = axios.create({
 // Retry up to 3 times on failed requests
 axiosRetry(axiosInstance, { retries: REQUEST_RETRIES });
 
+// Store reference to setMessages function for interceptors
+const setMessagesRef: React.RefObject<React.Dispatch<React.SetStateAction<AskAIMessage[]>> | null> = {
+  current: null,
+};
+const THINKING_MESSAGE_ID = crypto.randomUUID();
+
 // Interceptor for processing before request
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     /* prettier-ignore */
-//     updateSubmittingModalContent(
-//       "Wait...",
-//       "One moment. We're sending your message right now."
-//     );
+axiosInstance.interceptors.request.use(
+  (config) => {
+    if (setMessagesRef.current) {
+      const thinkingMessage: AskAIMessage = {
+        content: "I'm thinking...",
+        id: THINKING_MESSAGE_ID,
+        role: Role.Assistant,
+      };
+      setMessagesRef.current((msg) => [...msg, thinkingMessage]);
+    }
+    return config;
+  },
+  async (error) => {
+    throw error;
+  },
+);
 
-//     return config;
-//   },
-//   async (error) => {
-//     throw error;
-//   },
-// );
-
-// // Interceptor for processing after request
-// axiosInstance.interceptors.response.use(
-//   (response) => {
-//     // Update the title and description after a successful response
-//     /* prettier-ignore */
-//     updateSubmittingModalContent(
-//       "Thank You!",
-//       "Your message has been successfully sent! We'll contact you ASAP."
-//     );
-
-//     return response;
-//   },
-//   async (error) => {
-//     // Update title and description in case of error
-//     /* prettier-ignore */
-//     updateSubmittingModalContent(
-//       "Uh-oh!",
-//       "Sorry, but something went wrong. Please, try again later."
-//     );
-
-//     throw error;
-//   },
-// );
+// Interceptor for processing after request
+axiosInstance.interceptors.response.use(
+  (response) => {
+    // Remove thinking message after successful response
+    if (setMessagesRef.current) {
+      setMessagesRef.current((msg) => msg.filter((x) => x.id !== THINKING_MESSAGE_ID));
+    }
+    return response;
+  },
+  async (error) => {
+    // Remove thinking message on error
+    if (setMessagesRef.current) {
+      setMessagesRef.current((msg) => msg.filter((x) => x.id !== THINKING_MESSAGE_ID));
+    }
+    throw error;
+  },
+);
 
 const AskAI: FC = () => {
   /**
@@ -135,7 +138,7 @@ const AskAI: FC = () => {
    */
   /* prettier-ignore */
   const handleSendMessage = async (
-		values: AskAIFormValues, actions: FormikHelpers<AskAIFormValues>,
+		values: AskAIFormValues, actions: FormikHelpers<AskAIFormValues>
 	) => {
 		if (!values.message.trim()) return;
 
@@ -155,14 +158,14 @@ const AskAI: FC = () => {
 			});
 			const { answer } = response.data;
 
-			const aiMessage: AskAIMessage = {
+      const aiMessage: AskAIMessage = {
 				content: answer,
 				id: crypto.randomUUID(),
 				role: Role.Assistant,
 			};
 			setMessages((msg) => [...msg, aiMessage]);
-		} finally {
-      setMessages((msg) => [
+		} catch(err) {
+			setMessages((msg) => [
 				...msg,
 				{
 					content: "Error :/\nPlease try again later",
@@ -170,6 +173,7 @@ const AskAI: FC = () => {
 					role: Role.Assistant,
 				},
 			]);
+		} finally {
 			actions.setSubmitting(false);
 		}
 	};
@@ -199,8 +203,7 @@ const AskAI: FC = () => {
     message: Yup.string()
       .trim()
       .required('message is required')
-      .min(2, 'less than 002 symbols')
-      .max(96, 'more then 096 symbols'),
+      .min(2, 'less than 002 symbols').max(96, 'more then 096 symbols'), // prettier-ignore
   });
 
   /**
@@ -243,6 +246,14 @@ const AskAI: FC = () => {
     return () => osInstance?.destroy();
   }, [osInstance, scrollbarsOptions]);
 
+  // Sync setMessages with interceptors
+  useEffect(() => {
+    setMessagesRef.current = setMessages;
+    return () => {
+      setMessagesRef.current = null;
+    };
+  }, []);
+
   return (
     <div className="ask-ai">
       <h2 className="ask-ai__title">
@@ -251,19 +262,22 @@ const AskAI: FC = () => {
       <div className="ask-ai__chat">
         <div className="ask-ai__chat-inner" data-overlayscrollbars-initialize ref={chatScrollbarsRef}>
           {messages.length === 0 ? (
-            <div className="ask-ai__start-wrapper">
-              <div className="ask-ai__start-state">
-                <p className="ask-ai__start-state--title">Start a conversation with AI</p>
-                <div className="ask-ai__start-state--tip">What can Backendery build for me?</div>
-                <div className="ask-ai__start-state--tip">Tell me about your AI and automation solutions</div>
-                <div className="ask-ai__start-state--tip">What technologies do you specialize in?</div>
-                <div className="ask-ai__start-state--tip">Show me your recent projects</div>
+            <div className="ask-ai__intro-wrapper">
+              <div className="ask-ai__intro">
+                <p className="ask-ai__intro--title">Start a conversation with AI</p>
+                <div className="ask-ai__intro--hint">What do you build?</div>
+                <div className="ask-ai__intro--hint">Is Backendery a good fit for our type of project?</div>
+                <div className="ask-ai__intro--hint">How do you usually start a new project?</div>
+                <div className="ask-ai__intro--hint">What's your tech stack?</div>
               </div>
             </div>
           ) : (
-            <div className="ask-ai__messages">
+            <div className="ask-ai__conversation">
               {messages.map((msg) => (
-                <div key={msg.id} className={`ask-ai__message ask-ai__message--${msg.role}`}>
+                <div
+                  key={msg.id}
+                  className={`ask-ai__message ask-ai__message--${msg.role} ${msg.id === THINKING_MESSAGE_ID ? 'is-thinking' : ''}`}
+                >
                   <div className="ask-ai__message-content">{msg.content}</div>
                 </div>
               ))}
