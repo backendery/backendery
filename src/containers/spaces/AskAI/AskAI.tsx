@@ -73,7 +73,7 @@ const REQUEST_RETRIES = 3 as number;
 // Create an axios instance to set the interceptors
 const axiosInstance = axios.create({
   headers: {
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
   },
   // Disable automatic redirects
@@ -138,45 +138,45 @@ const AskAI: FC = () => {
    */
   /* prettier-ignore */
   const handleSendMessage = async (
-		values: AskAIFormValues, actions: FormikHelpers<AskAIFormValues>
-	) => {
-		if (!values.message.trim()) return;
+    values: AskAIFormValues, actions: FormikHelpers<AskAIFormValues>
+  ) => {
+    if (!values.message.trim()) return;
 
-		try {
-			const userMessage: AskAIMessage = {
-				content: values.message.trim(),
-				id: crypto.randomUUID(),
-				role: Role.User,
-			};
-			setMessages((msg) => [...msg, userMessage]);
+    try {
+      const userMessage: AskAIMessage = {
+        content: values.message.trim(),
+        id: crypto.randomUUID(),
+        role: Role.User,
+      };
+      setMessages((msg) => [...msg, userMessage]);
 
-			// Let's clean the form
-			actions.resetForm();
+      // Let's clean the form
+      actions.resetForm();
 
-			const response = await axiosInstance.post("/api/ask-ai", {
-				userPrompt: userMessage.content,
-			});
-			const { answer } = response.data;
+      const response = await axiosInstance.post("/api/ask-ai", {
+        userPrompt: userMessage.content,
+      });
+      const { answer } = response.data;
 
       const aiMessage: AskAIMessage = {
-				content: answer,
-				id: crypto.randomUUID(),
-				role: Role.Assistant,
-			};
-			setMessages((msg) => [...msg, aiMessage]);
-		} catch(err) {
-			setMessages((msg) => [
-				...msg,
-				{
-					content: "Error :/\nPlease try again later",
-					id: crypto.randomUUID(),
-					role: Role.Assistant,
-				},
-			]);
-		} finally {
-			actions.setSubmitting(false);
-		}
-	};
+        content: answer,
+        id: crypto.randomUUID(),
+        role: Role.Assistant,
+      };
+      setMessages((msg) => [...msg, aiMessage]);
+    } catch (err) {
+      setMessages((msg) => [
+        ...msg,
+        {
+          content: "Error :/\nPlease try again later",
+          id: crypto.randomUUID(),
+          role: Role.Assistant,
+        },
+      ]);
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
 
   /**
    * @states
@@ -309,15 +309,15 @@ const AskAI: FC = () => {
           {(
             /* prettier-ignore */
             {
-							errors,
-							isSubmitting,
-							setFieldError,
-							setFieldTouched,
-							setFieldValue,
-							submitCount,
-							touched,
-							values,
-						},
+              errors,
+              isSubmitting,
+              setFieldError,
+              setFieldTouched,
+              setFieldValue,
+              submitCount,
+              touched,
+              values,
+            },
           ) => (
             <Form onKeyDown={handleKeyDownEvent} className="ask-ai__chat-form">
               <div className="ask-ai-input">

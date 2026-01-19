@@ -3,10 +3,13 @@
 
 .ask-ai {
   @include mxs.adaptive-value($property: 'padding', $from: 130, $to: 50);
+  @include mxs.adaptive-value($property: 'gap', $from: 20, $to: 40);
 
-  position: relative;
+  display: flex;
+  flex-direction: column;
   width: vars.$width-in-dvw;
   height: vars.$height-in-dvh;
+  box-sizing: border-box;
   user-select: none;
 
   &__title {
@@ -21,17 +24,20 @@
 
     display: flex;
     flex-direction: column;
+    align-self: center;
     gap: 30px;
-    position: absolute;
-    height: 90%;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    flex: 1;
+    min-height: 0;
+
+    @media screen and (width <= vars.$xs) {
+      width: 100%;
+    }
   }
 
   &__chat-inner {
     width: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
   }
 
@@ -59,16 +65,25 @@
     &--hint {
       @include mxs.adaptive-value($property: 'padding', $from: 20, $to: 10);
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       color: rgba($color: vars.$secondary-color, $alpha: 50%);
       border: 1px dashed rgba($color: vars.$secondary-color, $alpha: 10%);
+
+      @media screen and (width <= vars.$xs) {
+        grid-column: 1/-1;
+      }
     }
   }
 
   &__conversation {
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
   }
 
   &__message {
@@ -115,6 +130,7 @@
   }
 
   &__chat-form {
+    flex-shrink: 0;
     width: 100%;
     height: 52px;
     display: flex;
@@ -123,11 +139,11 @@
 
   &__send-message-btn {
     @include mxs.adaptive-value($property: 'font-size', $from: 26, $to: 20, $trigger-at: vars.$sm);
-    @include mxs.adaptive-value($property: 'height', $from: 40, $to: 32, $trigger-at: vars.$md);
-    @include mxs.adaptive-value($property: 'width', $from: 40, $to: 32, $trigger-at: vars.$md);
 
     display: flex;
     gap: 12px;
+    width: 40px;
+    height: 40px;
     align-items: center;
     place-self: flex-start flex-start;
     justify-content: center;
@@ -140,21 +156,7 @@
         fill: vars.$primary-color;
       }
     }
-
-    @media screen and (width <=vars.$sm) {
-      margin-top: 10px;
-    }
   }
-
-  // @media screen and (width <= vars.$lg) {
-  //   grid-template-rows: auto auto 1fr;
-  //   grid-template-columns: 1fr auto;
-  //   row-gap: 30px;
-  // }
-
-  // @media screen and (width <= vars.$sm) {
-  //   grid-template-rows: auto auto auto 1fr;
-  // }
 }
 
 .ask-ai-input {
