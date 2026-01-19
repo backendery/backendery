@@ -1,5 +1,11 @@
 # Version history
 
+## 0.5.1 (19-01-2026)
+
+### Refactor
+- implement adaptive for various devices
+- correct of `ANSWER_PROMPT`
+
 ## 0.5.0 (18-01-2026)
 
 ### Features

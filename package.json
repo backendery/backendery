@@ -1,6 +1,6 @@
 {
   "name": "backendery",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "description": "A small React.js single-page app that serves as a homepage for the Backendery digital studio",
   "repository": {
