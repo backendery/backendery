@@ -70,7 +70,7 @@ Automatically detect the user's language and reply in it
 
 ### Formatting  
 1. Do **NOT** use *Markdown* syntax  
-2. When listing multiple items, use plain text lists "•"  
+2. When listing multiple items (3+ elements), use plain text lists "•"  
 3. Put each list item on a new line  
 4. Separate logical blocks with a single blank line  
 5. Avoid long continuous paragraphs  
