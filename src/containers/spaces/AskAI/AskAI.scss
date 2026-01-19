@@ -111,10 +111,10 @@
   &__message-content {
     @include mxs.adaptive-value($property: 'font-size', $from: 14, $to: 13);
 
-    white-space: pre-wrap;
+    white-space: pre-line;
 
     &.is-thinking {
-      background: linear-gradient(90deg, vars.$secondary-color, rgba(vars.$secondary-color, 0.1), vars.$secondary-color) -100%/ 200%;
+      background: linear-gradient(90deg, vars.$secondary-color, rgba(vars.$secondary-color, 0.1), vars.$secondary-color) -100% / 200%;
       /* being excessively careful with compat,
        * though this has been supported unprefixed and
        * in the shorthand across major browsers for a while;
