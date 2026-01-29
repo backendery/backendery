@@ -73,7 +73,7 @@ const REQUEST_RETRIES = 3 as number;
 // Create an axios instance to set the interceptors
 const axiosInstance = axios.create({
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
   // Disable automatic redirects
@@ -88,7 +88,7 @@ axiosRetry(axiosInstance, { retries: REQUEST_RETRIES });
 const setMessagesRef: React.RefObject<React.Dispatch<React.SetStateAction<AskAIMessage[]>> | null> = {
   current: null,
 };
-const THINKING_MESSAGE_ID = "thinking-message-id";
+const THINKING_MESSAGE_ID = 'thinking-message-id';
 
 // Interceptor for processing before request
 axiosInstance.interceptors.request.use(
@@ -274,11 +274,10 @@ const AskAI: FC = () => {
           ) : (
             <div className="ask-ai__conversation">
               {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`ask-ai__message ask-ai__message--${msg.role}`}
-                >
-                  <div className={`ask-ai__message-content ${msg.id === THINKING_MESSAGE_ID ? 'is-thinking' : ''}`}>{msg.content}</div>
+                <div key={msg.id} className={`ask-ai__message ask-ai__message--${msg.role}`}>
+                  <div className={`ask-ai__message-content ${msg.id === THINKING_MESSAGE_ID ? 'is-thinking' : ''}`}>
+                    {msg.content}
+                  </div>
                 </div>
               ))}
               <div ref={messagesEndRef} />

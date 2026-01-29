@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { zodTextFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
 
-import { loadValidatedEnv } from '../evars/evars-server.config';
+import { loadValidatedEnv } from '../vars/vars-server.config';
 
 export const config = { runtime: 'edge' };
 
@@ -84,8 +84,8 @@ Automatically detect the user's language and reply in it
 const MAX_USER_PROMPT_LENGTH = 96;
 const MAX_NUM_SEARCH_RESULTS = 3;
 const RATE_LIMIT = {
-  simple: { window:  900, max: 8 }, // requests per window per IP in seconds (- RAG)
-     rag: { window: 1800, max: 3 }, // requests per window per IP in seconds (+ RAG)
+  simple: { window: 900, max: 8 }, // requests per window per IP in seconds (- RAG)
+  rag: { window: 1800, max: 3 }, // requests per window per IP in seconds (+ RAG)
 } as const;
 
 const RateLimit = { Simple: 'simple', Rag: 'rag' } as const;
@@ -157,13 +157,17 @@ async function rateLimit(fingerprint: string, rateLimitMode: RateLimit) {
 
 export default async function handler(rq: Request) {
   if (rq.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), { status: 405 });
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
+    });
   }
 
   const { userPrompt } = await rq.json();
 
   if (typeof userPrompt !== 'string' || userPrompt.length > MAX_USER_PROMPT_LENGTH) {
-    return new Response(JSON.stringify({ error: 'Invalid prompt' }), { status: 400 });
+    return new Response(JSON.stringify({ error: 'Invalid prompt' }), {
+      status: 400,
+    });
   }
 
   const fingerprint = await getFingerprint(rq);
@@ -190,7 +194,9 @@ export default async function handler(rq: Request) {
   if (fastAnswer && fastAnswer.trim().length > 0) {
     // Checking the limit for simple requests
     if (!(await rateLimit(fingerprint, RateLimit.Simple))) {
-      return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
+      return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), {
+        status: 429,
+      });
     }
 
     return Response.json({ answer: fastAnswer, intent: intent });
@@ -203,7 +209,9 @@ export default async function handler(rq: Request) {
    * We use the Rag limit (since we are calling vector search)
    */
   if (!(await rateLimit(fingerprint, RateLimit.Rag))) {
-    return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
+    return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), {
+      status: 429,
+    });
   }
 
   const answerResponse = await openai.responses.parse({
