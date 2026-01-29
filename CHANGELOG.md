@@ -1,5 +1,14 @@
 # Version history
 
+## 0.5.2 (29-01-2026)
+
+### Refactor
+- update `ld+json` data
+
+### Chores
+- update `sitemap.xml` file
+- move `AI` prompts to AGENTS.md file
+
 ## 0.5.1 (19-01-2026)
 
 ### Refactor
