@@ -3,8 +3,6 @@ import { z } from 'zod';
 
 const AppMode = { Development: 'development', Production: 'production' } as const;
 
-type AppMode = (typeof AppMode)[keyof typeof AppMode];
-
 // Defines the schema for environment variable validation. Uses `Zod` for schema
 // validation and type inference
 const evarsSchema = z.object({

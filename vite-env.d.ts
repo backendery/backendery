@@ -1,17 +1,17 @@
-/* eslint-disable canonical/filename-match-regex */
-import { type SVGProps } from 'react';
+import type React from 'react';
 
 import { type EvarsSchema } from './evars/evars-client.config';
 
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: unknown[];
   }
 }
 
-declare module '*.svg?react' {
-  const ReactComponent: React.FC<SVGProps<SVGSVGElement>>;
-  export default ReactComponent;
+declare module '*.css';
+declare module '*.svg' {
+  const content: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  export default content;
 }
 
 declare module 'vite-plugin-svgr/client' {}
