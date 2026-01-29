@@ -42,47 +42,126 @@
     <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/ibmplexmono/v19/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgg.woff2" crossorigin>
     <script type="application/ld+json">
       {
-        "@context": "http://schema.org",
+        "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "Organization",
+            "@type": "ProfessionalService",
             "@id": "https://backendery.digital/#organization",
             "name": "Backendery",
+            "legalName": "Backendery Digital Studio",
             "url": "https://backendery.digital/",
             "logo": {
               "@type": "ImageObject",
               "url": "https://backendery.digital/assets/images/logo.png",
-              "caption": "Backendery Digital Studio"
+              "caption": "Backendery Digital Studio Logo"
             },
             "image": {
               "@id": "https://backendery.digital/#logo"
             },
-            "sameAs": [
-              "https://github.com/backendery/"
-            ],
-            "contactPoint": [
+            "email": "hi@backendery.digital",
+            "priceRange": "$$$",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Cesta XIV. divizije 20a",
+              "addressLocality": "Maribor",
+              "postalCode": "2000",
+              "addressCountry": "SI"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 46.551375752979624,
+              "longitude": 15.662300084658373
+            },
+            "areaServed": [
               {
-                "@type": "ContactPoint",
-                "contactType": "Sales & Support",
-                "email": "hi@backendery.digital",
-                "areaServed": "World",
-                "availableLanguage": ["English", "Russian", "Ukrainian"]
+                "@type": "Country",
+                "name": "Slovenia"
+              },
+              {
+                "@type": "Place",
+                "name": "World"
               }
             ],
-            "description": "Backendery is a digital engineering studio. We specialize in high-performance backends (Python/Rust), reactive web interfaces (React.js/Next.js), AI agents, and complex process automation.",
-            "areaServed": "World"
+            "description": "Backendery is a digital engineering studio specializing in high-performance backends (Python/Rust), reactive web interfaces, AI agents, and complex process automation.",
+            "sameAs": [
+              "https://github.com/backendery/",
+              "https://www.linkedin.com/company/backendery"
+            ],
+            "knowsAbout": [
+              "Software Engineering",
+              "Rust",
+              "Python",
+              "React.js",
+              "Next.js",
+              "AI Agents",
+              "High-performance systems",
+              "Distributed systems",
+              "Business Automation"
+            ],
+            "founder": [
+              {
+                "@type": "Person",
+                "name": "Iaroslav",
+                "jobTitle": "CTO & Software Engineering"
+              },
+              {
+                "@type": "Person",
+                "name": "Maxym",
+                "jobTitle": "CBO & Business • Partners"
+              }
+            ],
+            "employee": [
+              {
+                "@type": "Person",
+                "name": "Oleh",
+                "jobTitle": "CDO & Product Design • UX"
+              }
+            ],
+            "makesOffer": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "High-Performance Backend Development",
+                  "description": "Building mission-critical backend systems using Rust and Python focusing on performance and reliability."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "AI Agents & LLM Operations",
+                  "description": "Designing autonomous AI agents with RAG, tool usage, and multi-agent orchestration."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Intelligence-Driven User Interfaces",
+                  "description": "Developing modern interfaces (React/Next.js) where AI is a core feature."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Complex Automation",
+                  "description": "Building advanced automation pipelines and connecting legacy systems with modern infrastructure."
+                }
+              }
+            ]
           },
           {
             "@type": "WebSite",
             "@id": "https://backendery.digital/#website",
             "url": "https://backendery.digital/",
             "name": "Backendery",
-            "alternateName": "Backendery Digital Studio",
-            "description": "Expert engineering: High-Performance Backend, Modern Web, AI Agents & Automation.",
+            "description": "High-Performance Web, AI Agents & Automation",
             "publisher": {
               "@id": "https://backendery.digital/#organization"
             },
-            "inLanguage": "en-US"
+            "inLanguage": ["en-US", "uk", "ru"]
           }
         ]
       }
@@ -91,6 +170,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app</noscript>
     <div id="root"></div>
-    <script prerender type="module" src="./src/index.tsx"></script>
+    <script type="module" src="./src/index.tsx"></script>
   </body>
 </html>
